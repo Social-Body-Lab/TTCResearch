@@ -2691,7 +2691,7 @@ t = dat[, c("GeneralIndex", "Q4.7Circles", "Q3.9.1Need", "Q3.9.2Help", "experien
 
 ### SAVE DATA ###
 
-#drop the id variables (these are no longer needed)
+#drop the id variable (this is no longer needed)
 dat = dat[, -which(names(dat) %in% c("X"))]
 
 #save the dataset
