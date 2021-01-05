@@ -528,7 +528,7 @@ check_assumptions_change_over_time_models = function(code_dir, mlms, mlm_dir_nam
     
     #create a directory for the results, set the directory to that 
     cur_dir = code_dir
-    new_dir = paste0('../outputs/', cur_model)
+    new_dir = paste0('../outputs/assumption_checks/', cur_model)
     dir.create(file.path(cur_dir, new_dir))
     setwd(new_dir)
     
@@ -609,7 +609,7 @@ check_assumptions_main_models = function(code_dir, mlms, mlm_dir_names, predicto
     
     #create a directory for the results, set the directory to that 
     cur_dir = code_dir
-    new_dir = paste0('../outputs/', cur_model)
+    new_dir = paste0('../outputs/assumption_checks/', cur_model)
     dir.create(file.path(cur_dir, new_dir))
     setwd(new_dir)
     

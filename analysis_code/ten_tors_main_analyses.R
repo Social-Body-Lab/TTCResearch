@@ -1,3 +1,10 @@
+"
+Author: Arran J. Davis
+Email: arran.davis@anthro.ox.ac.uk | davis.arran@gmail.com
+Affiliation: Social Body Lab, Institute of Cognitive and Evolutionary Anthropology, University of Oxford
+Date: 05/01/2021
+"
+
 #clean environment
 rm(list = ls())
 
@@ -5,15 +12,19 @@ rm(list = ls())
 code_dir = dirname(rstudioapi::getActiveDocumentContext()$path)
 setwd(code_dir)
 
+#read metadata
+metadata = readLines('../data/TTC_data_CFA_PCA_variables.csv', 2)
+print(metadata)
+
 #load the data
-dat = read.csv('../data/TTC_data_CFA_PCA_variables.csv')
+dat = read.csv('../data/TTC_data_CFA_PCA_variables.csv', skip = 2)
 
 ################################################################################################################################################
 
 ### MODEL ASSUMPTION CHECKS ###
 
 #load local functions adapted from the R script provided by Snijders & Bosker (2012); https://www.stats.ox.ac.uk/~snijders/ch10.r
-source("assumption_check_functions_change_over_time_models.R")
+source("assumption_check_functions.R")
 
 ### FUNCTION FOR MAKING MODEL RESULTS ###
 
@@ -1188,6 +1199,10 @@ top_space_theme = base_theme + theme(plot.margin = margin(2, 1, 1, 1, "cm"))
 #create a theme with space at the top and right for additional labels
 top_and_right_space_theme = base_theme + theme(plot.margin = margin(2, 2, 1, 1, "cm"))
 
+#set current working directory to the one this script is in (when in RStudio)
+code_dir = dirname(rstudioapi::getActiveDocumentContext()$path)
+setwd(code_dir)
+
 ################################################################################################################################################
 
 ### PERFORMANCE SATISFACTION PREDICTS WELLBEING CHANGE (T1 TO T4) ###
@@ -1220,7 +1235,7 @@ plot_ps_wc = ggplot() +
              xlab("Performance Satisfaction\n(component score)") + 
              base_theme
 
-ggsave("../../../Results/graphs/wellbeing_change_by_performance_satisfaction.jpg", plot_ps_wc, width = 7.5, height = 7.5)
+ggsave("../outputs/main_analysis_plots/wellbeing_change_by_performance_satisfaction.jpg", plot_ps_wc, width = 7.5, height = 7.5)
 
 ################################################################################################################################################
 
@@ -1250,7 +1265,7 @@ plot_bt3_wc = ggplot() +
               xlab("Bonding (T3)\n(component score)") + 
               base_theme
 
-ggsave("../../../Results/graphs/wellbeing_change_by_bonding_t3.jpg", plot_bt3_wc, width = 7.5, height = 7.5)
+ggsave("../outputs/main_analysis_plots/wellbeing_change_by_bonding_t3.jpg", plot_bt3_wc, width = 7.5, height = 7.5)
 
 ################################################################################################################################################
 
@@ -1261,7 +1276,7 @@ library(ggpubr)
 #combine the plots
 combined_wc_plots = ggarrange(plot_ps_wc, plot_bt3_wc, ncol = 2, labels = c("(a)","(b)"), font.label = list(color="black",size = axis_size))
 
-ggsave("../../../Results/graphs/combined_wellbeing_change_plots.jpg", combined_wc_plots, width = 12.5, height = 7.5)
+ggsave("../outputs/main_analysis_plots/combined_wellbeing_change_plots.jpg", combined_wc_plots, width = 12.5, height = 7.5)
 
 ################################################################################################################################################
 
@@ -1290,7 +1305,7 @@ plot_pd_bt3 = ggplot() +
               xlab("Physical Discomfort\n(component score)") + 
               base_theme
 
-ggsave("../../../Results/graphs/bonding_t3_by_physical_discomfort.jpg", plot_pd_bt3, width = 7.5, height = 7.5)
+ggsave("../outputs/main_analysis_plots/bonding_t3_by_physical_discomfort.jpg", plot_pd_bt3, width = 7.5, height = 7.5)
 
 ################################################################################################################################################
 
@@ -1319,7 +1334,7 @@ plot_ei_bt3 = ggplot() +
               xlab("Experienced Interdependence\n(component score)") + 
               base_theme
 
-ggsave("../../../Results/graphs/bonding_t3_by_experienced_interdependence.jpg", plot_ei_bt3, width = 7.5, height = 7.5)
+ggsave("../outputs/main_analysis_plots/bonding_t3_by_experienced_interdependence.jpg", plot_ei_bt3, width = 7.5, height = 7.5)
 
 ################################################################################################################################################
 
@@ -1348,7 +1363,7 @@ plot_tp_bt3 = ggplot() +
               xlab("Team Performance Relative to Expectations\n(9-point Likert scale)") + 
               base_theme
 
-ggsave("../../../Results/graphs/bonding_t3_by_subjective_team_performance.jpg", plot_tp_bt3, width = 7.5, height = 7.5)
+ggsave("../outputs/main_analysis_plots/bonding_t3_by_subjective_team_performance.jpg", plot_tp_bt3, width = 7.5, height = 7.5)
 
 ################################################################################################################################################
 
@@ -1378,7 +1393,7 @@ plot_emo_s_bt3 = ggplot() +
                  xlab("Received Emotional Support\n(5-point Likert Scale question mean)") + 
                  base_theme
 
-ggsave("../../../Results/graphs/bonding_t3_by_received_emotional_support.jpg", plot_emo_s_bt3, width = 7.5, height = 7.5)
+ggsave("../outputs/main_analysis_plots/bonding_t3_by_received_emotional_support.jpg", plot_emo_s_bt3, width = 7.5, height = 7.5)
 
 ################################################################################################################################################
 
@@ -1410,7 +1425,7 @@ plot_est_s_bt3 = ggplot() +
                  xlab("Received Esteem Support\n(5-point Likert Scale question mean)") + 
                  base_theme
 
-ggsave("../../../Results/graphs/bonding_t3_by_received_esteem_support.jpg", plot_est_s_bt3, width = 7.5, height = 7.5)
+ggsave("../outputs/main_analysis_plots/bonding_t3_by_received_esteem_support.jpg", plot_est_s_bt3, width = 7.5, height = 7.5)
 
 ################################################################################################################################################
 
@@ -1435,10 +1450,8 @@ plot_bt3_ps = ggplot() +
               geom_point(data = plot_dat_bonding_t3_performance_sat, aes(x = bonding_t3, y = peform_satisfaction_t3), alpha = .5, na.rm = TRUE) +
               scale_x_continuous(limits = c(min(plotted_model_bonding_t3_performance_sat$x), high_bond), breaks = c(-3, -2, -1, 0, 1), 
                                  labels = c("-3", "-2", "-1", "0", "1")) +
-              scale_y_continuous(limits = c(round(low_ps), round(high_ps)), breaks = c(-5, -4, -3, -2, -1, 0, 1), 
-                                 labels = c("-5", "-4", "-3", "-2", "-1", "0", "1")) +
               ylab("Performance Satisfaction\n(component score)") + 
               xlab("Bonding (T3)\n(component score)") + 
               base_theme
 
-ggsave("../../../Results/graphs/performance_satisfaction_by_bonding_t3.jpg", plot_bt3_ps, width = 7.5, height = 7.5)
+ggsave("../outputs/main_analysis_plots/performance_satisfaction_by_bonding_t3.jpg", plot_bt3_ps, width = 7.5, height = 7.5)

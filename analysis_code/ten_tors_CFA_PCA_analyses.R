@@ -1,3 +1,10 @@
+"
+Author: Arran J. Davis
+Email: arran.davis@anthro.ox.ac.uk | davis.arran@gmail.com
+Affiliation: Social Body Lab, Institute of Cognitive and Evolutionary Anthropology, University of Oxford
+Date: 05/01/2021
+"
+
 #clean environment
 rm(list = ls())
 
@@ -5,8 +12,12 @@ rm(list = ls())
 code_dir = dirname(rstudioapi::getActiveDocumentContext()$path)
 setwd(code_dir)
 
+#read metadata
+metadata = readLines('../data/TTC_data_anonymised.csv', 2)
+print(metadata)
+
 #load the data
-dat = read.csv('../data/TTC_data_anonymised.csv')
+dat = read.csv('../data/TTC_data_anonymised.csv', skip = 2)
 
 ################################################################################################################################################
 
@@ -976,16 +987,13 @@ t = dat[,c("GeneralIndex", "tension_t2", "tension_t3", "vigour_t3", "confusion_t
 
 ### CONFIRMATORY FACTOR ANALYSIS ON THE PERCEPTIONS OF RELATIONSHIP SCALE (T2) ###
 
-#reverse score for the values question
-dat$Q266ValuR = 8 - dat$Q266Valu
-
 #create a data frame of the variables of interest
 relationship_dat_t2 = dat[, c("Q261Close",
                               "Q262Simi",
                               "Q263Talk",
                               "Q264Enjoy",
                               "Q265Thing",
-                              "Q266ValuR",
+                              "Q266Valu.R.",
                               "Q266Valu",
                               "Q267Oft",
                               "Q268Like",
@@ -1005,7 +1013,7 @@ round(cor(relationship_dat_t2_no_NA[,c("Q261Close",
                                        "Q263Talk",
                                        "Q264Enjoy",
                                        "Q265Thing",
-                                       "Q266ValuR",
+                                       "Q266Valu.R.",
                                        "Q267Oft",
                                        "Q268Like",
                                        "Q26a.1Personal",
@@ -1023,7 +1031,7 @@ corrplot(cor(relationship_dat_t2_no_NA[,c("Q261Close",
                                           "Q263Talk",
                                           "Q264Enjoy",
                                           "Q265Thing",
-                                          "Q266ValuR",
+                                          "Q266Valu.R.",
                                           "Q266Valu",
                                           "Q267Oft",
                                           "Q268Like",
@@ -1051,7 +1059,7 @@ relationship_0factor = ' #start of model
   Q263Talk ~~ Q263Talk
   Q264Enjoy ~~ Q264Enjoy
   Q265Thing ~~ Q265Thing
-  Q266ValuR ~~ Q266ValuR
+  Q266Valu.R. ~~ Q266Valu.R.
   Q267Oft ~~ Q267Oft
   Q268Like ~~ Q268Like
   Q26a.1Personal ~~ Q26a.1Personal
@@ -1070,7 +1078,7 @@ relationship_0factor = ' #start of model
   Q263Talk ~ 1
   Q264Enjoy ~ 1
   Q265Thing ~ 1
-  Q266ValuR ~ 1
+  Q266Valu.R. ~ 1
   Q267Oft ~ 1
   Q268Like ~ 1
   Q26a.1Personal ~ 1
@@ -1096,7 +1104,7 @@ relationship_3factor = ' #start of model
 
 # latent variable definitions (common factors)
   close =~ NA*Q261Close + NA*Q268Like + NA*Q26a.1Personal + NA*Q26a.5Import + NA*Q26a.4Opin + NA*Q264Enjoy + NA*Q26a.2Relat
-  similarity =~ NA*Q265Thing + NA*Q26a.3Attit + NA*Q266ValuR + NA*Q26a.7Simi + NA*Q262Simi
+  similarity =~ NA*Q265Thing + NA*Q26a.3Attit + NA*Q266Valu.R. + NA*Q26a.7Simi + NA*Q262Simi
   eday_centrality =~ NA*Q267Oft + NA*Q26a.6EDay + NA*Q263Talk
 
 # latent variable variances
@@ -1113,7 +1121,7 @@ relationship_3factor = ' #start of model
   Q263Talk ~~ Q263Talk
   Q264Enjoy ~~ Q264Enjoy
   Q265Thing ~~ Q265Thing
-  Q266ValuR ~~ Q266ValuR
+  Q266Valu.R. ~~ Q266Valu.R.
   Q267Oft ~~ Q267Oft
   Q268Like ~~ Q268Like
   Q26a.1Personal ~~ Q26a.1Personal
@@ -1132,7 +1140,7 @@ relationship_3factor = ' #start of model
   Q263Talk ~ 1
   Q264Enjoy ~ 1
   Q265Thing ~ 1
-  Q266ValuR ~ 1
+  Q266Valu.R. ~ 1
   Q267Oft ~ 1
   Q268Like ~ 1
   Q26a.1Personal ~ 1
@@ -1148,14 +1156,14 @@ relationship_3factor = ' #start of model
 fit3 = lavaan(relationship_3factor, data = relationship_dat_t2_no_NA, mimic = "mplus")
 summary(fit3, standardized=TRUE, fit.measures=TRUE)
 
-semPaths(fit4, what="std", 
+semPaths(fit3, what="std", 
          sizeLat = 7, sizeMan = 7, edge.label.cex = .75)
 
 #get the factor loadings
 inspect(fit3,what="std")$lambda
 
 #compare the fit of this model to the fit of the 0 factor model
-round(cbind(m1=inspect(fit0, 'fit.measures'), m2=inspect(fit4, 'fit.measures')),3)
+round(cbind(m1=inspect(fit0, 'fit.measures'), m2=inspect(fit3, 'fit.measures')),3)
 anova(fit0, fit3)
 
 #Cronbach's alpha for the perceptions of relationships factor
@@ -1194,9 +1202,6 @@ t = dat[,c("GeneralIndex", "Q26a.1Personal", "closeness_t2", "similarity_t2", "e
 ################################################################################################################################################
 
 ### CONFIRMATORY FACTOR ANALYSIS ON THE PERCEPTIONS OF RELATIONSHIP SCALE (T4) ###
-
-#reverse score for the values question
-dat$Q4.8.6ValuesR = 8 - dat$Q4.8.6Values
 
 #create a data frame of the variables of interest
 relationship_dat_t4 = dat[, c("Q4.8.1Close",
@@ -1306,10 +1311,10 @@ summary(fit0, standardized=TRUE, fit.measures=TRUE)
 semPaths(fit0, what="std", 
          sizeLat = 7, sizeMan = 7, edge.label.cex = .75)
 
-### FOUR FACTOR MODEL ###
+### THREE FACTOR MODEL ###
 
-#model with zero common factors 
-relationship_4factor = ' #start of model
+#model with three common factors 
+relationship_3factor = ' #start of model
 
 # latent variable definitions (common factors)
   close =~ NA*Q4.8.1Close + NA*Q4.8.8Like + NA*Q4.8.a.1Personal + NA*Q4.8.a.5Import + NA*Q4.8.a.4Opin + NA*Q4.8.4Time + NA*Q4.8.a.2Relat
@@ -1362,18 +1367,18 @@ relationship_4factor = ' #start of model
 ' #end of model
 
 #fit the model and evaluate it
-fit4 = lavaan(relationship_4factor, data = relationship_dat_t4_no_NA, mimic = "mplus")
-summary(fit4, standardized=TRUE, fit.measures=TRUE)
+fit3 = lavaan(relationship_3factor, data = relationship_dat_t4_no_NA, mimic = "mplus")
+summary(fit3, standardized=TRUE, fit.measures=TRUE)
 
-semPaths(fit4, what="std", 
+semPaths(fit3, what="std", 
          sizeLat = 7, sizeMan = 7, edge.label.cex = .75)
 
 #get the factor loadings
-inspect(fit4,what="std")$lambda
+inspect(fit3,what="std")$lambda
 
 #compare the fit of this model to the fit of the 0 factor model
-round(cbind(m1=inspect(fit0, 'fit.measures'), m2=inspect(fit4, 'fit.measures')),3)
-anova(fit0, fit4)
+round(cbind(m1=inspect(fit0, 'fit.measures'), m2=inspect(fit3, 'fit.measures')),3)
+anova(fit0, fit3)
 
 #Cronbach's alpha for the perceptions of relationships factor
 closeness_data_t4 = na.exclude(dat[,c("Q4.8.1Close", "Q4.8.8Like", "Q4.8.a.1Personal", "Q4.8.a.5Import", "Q4.8.a.4Opin", "Q4.8.4Time", "Q4.8.a.2Relat")])
@@ -2691,8 +2696,8 @@ t = dat[, c("GeneralIndex", "Q4.7Circles", "Q3.9.1Need", "Q3.9.2Help", "experien
 
 ### SAVE DATA ###
 
-#drop the id variable (this is no longer needed)
-dat = dat[, -which(names(dat) %in% c("X"))]
+#write metadata to the file
+writeLines("../data/TTC_data_CFA_PCA_variables.csv", text = c(metadata[1], metadata[2]))
 
-#save the dataset
-write.csv(dat, "TTC_data_CFA_PCA_variables.csv", row.names=FALSE)
+#append the dataframe to the annotated file
+write.table(dat, file = "../data/TTC_data_CFA_PCA_variables.csv", append = TRUE, row.names = TRUE, col.names = TRUE, sep = ',')
