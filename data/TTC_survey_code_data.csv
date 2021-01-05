@@ -1,0 +1,174 @@
+﻿Variable,Measure,Response_options,Questionnaire
+GeneralIndex,Unique participant identifier,,
+TeamIDVar,Deidentified team code,,
+Sex,Male/Female,,
+Q1.2TTDistance,"TT Challenge Distance: 35, 45, or 55 miles",,T1
+Q1.3.1Optim,I've been feeling optimistic about the future,1=None of the time; 2 = Rarely; 3=Some of the time; 4=Often; 5=All of the time,T1
+Q1.3.2Useful,I've been feeling useful,1=None of the time; 2 = Rarely; 3=Some of the time; 4=Often; 5=All of the time,T1
+Q1.3.3Relax,I've been feeling relaxed,1=None of the time; 2 = Rarely; 3=Some of the time; 4=Often; 5=All of the time,T1
+Q1.3.4Interest,I've been feeling interested in other people,1=None of the time; 2 = Rarely; 3=Some of the time; 4=Often; 5=All of the time,T1
+Q1.3.5Energy,I've had energy to spare,1=None of the time; 2 = Rarely; 3=Some of the time; 4=Often; 5=All of the time,T1
+Q1.3.6Probl,I've been dealing with problems well,1=None of the time; 2 = Rarely; 3=Some of the time; 4=Often; 5=All of the time,T1
+Q1.3.7Clear,I've been thinking clearly,1=None of the time; 2 = Rarely; 3=Some of the time; 4=Often; 5=All of the time,T1
+Q1.4.1Good,I've been feeling good about myself,1=None of the time; 2 = Rarely; 3=Some of the time; 4=Often; 5=All of the time,T1
+Q1.4.2Close,I've been feeling close to other people,1=None of the time; 2 = Rarely; 3=Some of the time; 4=Often; 5=All of the time,T1
+Q1.4.3Confi,I've been feeling confident,1=None of the time; 2 = Rarely; 3=Some of the time; 4=Often; 5=All of the time,T1
+Q1.4.4Mind,I've been able to make up my own mind about things,1=None of the time; 2 = Rarely; 3=Some of the time; 4=Often; 5=All of the time,T1
+Q1.4.5Love,I've been feeling loved,1=None of the time; 2 = Rarely; 3=Some of the time; 4=Often; 5=All of the time,T1
+Q1.4.6NewInt,I've been interested in new things,1=None of the time; 2 = Rarely; 3=Some of the time; 4=Often; 5=All of the time,T1
+Q1.4.7Cheer,I've been feeling cheerful,1=None of the time; 2 = Rarely; 3=Some of the time; 4=Often; 5=All of the time,T1
+Q231Panicky,Panicky,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T2
+Q232Lively,Lively,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T2
+Q233Confused,Confused,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T2
+Q34Worn,Worn out,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T2
+Q235Depres,Depressed,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T2
+Q236Down,Downhearted,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T2
+Q23a.1Annoy,Annoyed,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T2
+Q23a.2Exhaust,Exhausted,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T2
+Q23a.3Mix,Mixed-up,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T2
+Q23a.4Sleep,Sleepy,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T2
+Q23a.5Bitter,Bitter,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T2
+Q23a.6Unhap,Unhappy,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T2
+Q23b.1Worr,Worried,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T2
+Q23b.2Energ,Energetic,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T2
+Q23b.3Mis,Miserable,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T2
+Q23b.4Muddl,Muddled,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T2
+Q23b.5Nerv,Nervous,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T2
+Q23b.6Angry,Angry,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T2
+Q23c.1Acti,Active,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T2
+Q23c.2Anx,Anxious,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T2
+Q23c.3BadT,Bad tempered,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T2
+Q23c.4Tire,Tired,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T2
+Q23c.5Alert,Alert,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T2
+Q23c.6Uncet,Uncertain,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T2
+Q2.4Circles,4. Select one of the options (A-E),A=1; B=2; C=3; D=4; E=5,T2
+Q251Rely,"In this team, members don't have to rely on one another",1=Strongly Disagree; 7=Strongly Agree,T2
+Q251Rely.R.,Reverse Coded,,T2
+Q252Cont,All members need to contribute to achieve the team's goals,1=Strongly Disagree; 7=Strongly Agree,T2
+Q253TWork,The team accomplishes things that no single member could achieve,1=Strongly Disagree; 7=Strongly Agree,T2
+Q254Coop,"In this team, members do not need to cooperate to complete team tasks",1=Strongly Disagree; 7=Strongly Agree,T2
+Q254Coop.R.,Q254Coop Reverse Coded,,T2
+Q261Close,How close are you to your team members?,1=Not at all; 7=Very much,T2
+Q262Simi,My team members and I have a similar outlook on life,1=Not at all; 7=Very much,T2
+Q263Talk,How often do you talk to your team members?,1=Not at all; 7=Very much,T2
+Q264Enjoy,How much do you enjoy spending time with your team members?,1=Not at all; 7=Very much,T2
+Q265Thing,My team members and I like a lot of the same things,1=Not at all; 7=Very much,T2
+Q266Valu,My team members and I have very different values,1=Not at all; 7=Very much,T2
+Q266Valu.R.,Q266Valu Reverse Coded,,T2
+Q267Oft,How often do you see your team members?,1=Not at all; 7=Very much,T2
+Q268Like,How much do you like your team members?,1=Not at all; 7=Very much,T2
+Q26a.1Personal,How often do you talk about personal things with your team members?,1=Not at all; 7=Very much,T2
+Q26a.2Relat,How satisfied are you with your relationship to your team members?,1=Not at all; 7=Very much,T2
+Q26a.3Attit,My team members and I share a lot of the same attitudes about things,1=Not at all; 7=Very much,T2
+Q26a.4Opin,How important are your team members' opinions to you?,1=Not at all; 7=Very much,T2
+Q26a.5Import,How important is your relationship with your team members?,1=Not at all; 7=Very much,T2
+Q26a.6EDay,How central are your team members to your everyday life?,1=Not at all; 7=Very much,T2
+Q26a.7Simi,My team members and I are very similar,1=Not at all; 7=Very much,T2
+Q271Conn,How connected do you feel to the other members of your team?,1=Not at all; 7=Very much,T2
+Q272Bond,How bonded do you feel to the other members of your team?,1=Not at all; 7=Very much,T2
+Q273Commi,How committed do you feel to the other members of your team?,1=Not at all; 7=Very much,T2
+Q281.impact, ... it will have a positive impact on you,1=Not at all; 5 = Extremely,T2
+Q282threat,... it is a threatening situation,1=Not at all; 5 = Extremely,T2
+Q283Affect,...you will be affected by it,1=Not at all; 5 = Extremely,T2
+Q284Excite, ... you are excited about the outcome,1=Not at all; 5 = Extremely,T2
+Q285Anx, ...anxious,1=Not at all; 5 = Extremely,T2
+Q286Conse,...it will have important consequences for you,1=Not at all; 5 = Extremely,T2
+Q28a.1nega,... the outcome will be negative,1=Not at all; 5 = Extremely,T2
+Q28a.2Impli,... it will have serious implications for you,1=Not at all; 5 = Extremely,T2
+Q28a.3Eager,... you are eager to tackle it,1=Not at all; 5 = Extremely,T2
+Q28a.4Long,... it will have long-term consequences for you,1=Not at all; 5 = Extremely,T2
+Q28a.5Stron,... you can become a stronger person through it,1=Not at all; 5 = Extremely,T2
+Q28a.6nega,... it will have a negative impact on you,1=Not at all; 5 = Extremely,T2
+Q291Able,... has more abilities than other teams?,0=Not at all; 10=Very much,T2
+Q292Prep,... is effectively prepared for the activities?,0=Not at all; 10=Very much,T2
+Q293Distr,... has the ability to overcome distractions?,0=Not at all; 10=Very much,T2
+Q294Perf,... can perform the activity better than the other teams?,0=Not at all; 10=Very much,T2
+Q2.10.1Comf,"If needed, to what extent would someone in your team provide you with comfort and security?",0=Not at all; 10=Very much,T2
+Q2.10.2Posi,… reinforce the positives?,0= Not at all; 6 = Extremely so,T2
+Q2.10.3Confi,... instil you with the confidence to deal with pressure?,0= Not at all; 6 = Extremely so,T2
+Q2.10.4Be,… always be there for you?,0= Not at all; 6 = Extremely so,T2
+Q2.10.a.1Care,… care for you?,0= Not at all; 6 = Extremely so,T2
+Q2.10.a.2Boost,…  boost your sense of competence?,0= Not at all; 6 = Extremely so,T2
+Q2.10.a.3Concern,... show concern for you?,0= Not at all; 6 = Extremely so,T2
+Q2.10.a.4SEst,... enhance your self-esteem?,0= Not at all; 6 = Extremely so,T2
+Q3.5.1Panicky,Panicky,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T3
+Q3.5.2Lively,Lively,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T3
+Q3.5.3Confus,Confused,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T3
+Q3.5.4Worn,Worn out,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T3
+Q3.5.5Depres,Depressed,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T3
+Q3.5.6Down,Downhearted,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T3
+Q3.5.a.1Annoy,Annoyed,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T3
+Q3.5.a.2Exhaus,Exhausted,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T3
+Q3.5.a.3Mix,Mixed-up,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T3
+Q3.5.a.4Sleep,Sleepy,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T3
+Q3.5.a.5Bitt,Bitter,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T3
+Q3.5.a.6Unhap,Unhappy,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T3
+Q3.5.b.1Worri,Worried,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T3
+Q3.5.b.2Energ,Energetic,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T3
+Q3.5.b.3Mis,Miserable,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T3
+Q3.5.b.4Muddl,Muddled,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T3
+Q3.5.b.5Nerv,Nervous,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T3
+Q3.5.b.6Angr,Angry,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T3
+Q3.5.c.1Activ,Active,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T3
+Q3.5.c.2Anx,Anxious,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T3
+Q3.5.c.3BadT,Bad tempered,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T3
+Q3.5.c.4Tire,Tired,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T3
+Q3.5.c.5Alert,Alert,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T3
+Q3.5.c.6Uncer,Uncertain,"1=Not at all; 2= A little; 3=Moderately, 4=Quite a bit; 5=Extremely",T3
+Q3.6.1Pain,How much pain did you experience overall?,1= None at all; 10 = Extremely high,T3
+Q3.6.2Fatigue,How much fatigue did you experience overall?,1= None at all; 10 = Extremely high,T3
+Q3.6.3Effort,How much effort did you put in overall?,1= None at all; 10 = Extremely high,T3
+Q3.7Circles,Select one of the options (A-E),A=1; B=2; C=3; D=4; E=5,T3
+Q3.8.1Connect,How connected do you feel to the other members of your team?,1=Not at all; 7=Very much,T3
+Q3.8.2Bond,How bonded do you feel to the other members of your team?,1=Not at all; 7=Very much,T3
+Q3.8.3.Commit,How committed do you feel to the other members of your team?,1=Not at all; 7=Very much,T3
+Q3.9.1Need,... how much did you need each other?,1=Not at all; 7=Very much,T3
+Q3.9.2Help,... how much did you help each other?,1=Not at all; 7=Very much,T3
+Q3.10.1Cheer,... cheer you up?,1=Not at all; 5 = Very much,T3
+Q3.10.2Able,... emphasise your abilities?,1=Not at all; 5 = Very much,T3
+Q3.10.3.ves,... reinforce the positives?,1=Not at all; 5 = Very much,T3
+Q3.10.4Listen,... listen to you?,1=Not at all; 5 = Very much,T3
+Q3.10.5Comfort,... comfort you?,1=Not at all; 5 = Very much,T3
+Q3.10.a.1Concern,... show concern for you?,1=Not at all; 5 = Very much,T3
+Q3.10.a.2Can,"... tell you, you can do it?",1=Not at all; 5 = Very much,T3
+Q3.10.a.3Encourage,... encourage you?,1=Not at all; 5 = Very much,T3
+Q3.10.a.4Confi,... boost your confidence?,1=Not at all; 5 = Very much,T3
+Q3.10.a.5Be,... make you feel that they would always be there for you?,1=Not at all; 5 = Very much,T3
+Q3.11.1Indiv,How satisfied are you with your individual performance?,1=Not at all; 5 = Very much,T3
+Q3.11.2Team,How satisfied are you with the performance of your team?,1=Not at all; 5 = Very much,T3
+Q3.12.1IExpect,How does your individual performance compare to your expectations before the event?,1= Much worse than expected; 5 = As expected; 9 = Much better than expected,T3
+Q3.12.2TExpect,How does the performance of your team compare to your expectations before the event?,1= Much worse than expected; 5 = As expected; 9 = Much better than expected,T3
+Q4.5.1Optim,I've been feeling optimistic about the future,1=None of the time; 2 = Rarely; 3=Some of the time; 4=Often; 5=All of the time,T4
+Q4.5.2Use,I've been feeling useful,1=None of the time; 2 = Rarely; 3=Some of the time; 4=Often; 5=All of the time,T4
+Q4.5.3Relax,I've been feeling relaxed,1=None of the time; 2 = Rarely; 3=Some of the time; 4=Often; 5=All of the time,T4
+Q4.5.4Intere,I've been feeling interested in other people,1=None of the time; 2 = Rarely; 3=Some of the time; 4=Often; 5=All of the time,T4
+Q4.5.5Energ,I've had energy to spare,1=None of the time; 2 = Rarely; 3=Some of the time; 4=Often; 5=All of the time,T4
+Q4.5.6Probl,I've been dealing with problems well,1=None of the time; 2 = Rarely; 3=Some of the time; 4=Often; 5=All of the time,T4
+Q4.5.7Clear,I've been thinking clearly,1=None of the time; 2 = Rarely; 3=Some of the time; 4=Often; 5=All of the time,T4
+Q4.6.1Good,I've been feeling good about myself,1=None of the time; 2 = Rarely; 3=Some of the time; 4=Often; 5=All of the time,T4
+Q4.6.2Close,I've been feeling close to other people,1=None of the time; 2 = Rarely; 3=Some of the time; 4=Often; 5=All of the time,T4
+Q4.6.3Confi,I've been feeling confident,1=None of the time; 2 = Rarely; 3=Some of the time; 4=Often; 5=All of the time,T4
+Q4.6.4Mind,I've been able to make up my own mind about things,1=None of the time; 2 = Rarely; 3=Some of the time; 4=Often; 5=All of the time,T4
+Q4.6.5Love,I've been feeling loved,1=None of the time; 2 = Rarely; 3=Some of the time; 4=Often; 5=All of the time,T4
+Q4.6.6New,I've been interested in new things,1=None of the time; 2 = Rarely; 3=Some of the time; 4=Often; 5=All of the time,T4
+Q4.6.7Cheer,I've been feeling cheerful,1=None of the time; 2 = Rarely; 3=Some of the time; 4=Often; 5=All of the time,T4
+Q4.7Circles,Select one of the options (A-E),A=1; B=2; C=3; D=4; E=5,T4
+Q4.8.1Close,How close are you to your team members?,1=Not at all; 7=Very much,T4
+Q4.8.2Simi,My team members and I have a similar outlook on life,1=Not at all; 7=Very much,T4
+Q4.8.3Talk,How often do you talk to your team members?,1=Not at all; 7=Very much,T4
+Q4.8.4Time,How much do you enjoy spending time with your team members?,1=Not at all; 7=Very much,T4
+Q4.8.5Things,My team members and I like a lot of the same things,1=Not at all; 7=Very much,T4
+Q4.8.6Values,My team members and I have very different values,1=Not at all; 7=Very much,T4
+Q4.8.6ValuesR,Q4.8.7Valu Reverse coded,,T4
+Q4.8.7See,How often do you see your team members?,1=Not at all; 7=Very much,T4
+Q4.8.8Like,How much do you like your team members?,1=Not at all; 7=Very much,T4
+Q4.8.a.1Personal,How often do you talk about personal things with your team members?,1=Not at all; 7=Very much,T4
+Q4.8.a.2Relat,How satisfied are you with your relationship to your team members?,1=Not at all; 7=Very much,T4
+Q4.8.a.3Attit,My team members and I share a lot of the same attitudes about things,1=Not at all; 7=Very much,T4
+Q4.8.a.4Opin,How important are your team members' opinions to you?,1=Not at all; 7=Very much,T4
+Q4.8.a.5Import,How important is your relationship with your team members?,1=Not at all; 7=Very much,T4
+Q4.8.a.6EDay,How central are your team members to your everyday life?,1=Not at all; 7=Very much,T4
+Q4.8.a.7Vsimi,My team members and I are very similar,1=Not at all; 7=Very much,T4
+Q4.9.1Connect,How connected do you feel to the other members of your team?,1=Not at all; 7=Very much,T4
+Q4.9.2Bond,How bonded do you feel to the other members of your team?,1=Not at all; 7=Very much,T4
+Q4.9.3Commit,How committed do you feel to the other members of your team?,1=Not at all; 7=Very much,T4
