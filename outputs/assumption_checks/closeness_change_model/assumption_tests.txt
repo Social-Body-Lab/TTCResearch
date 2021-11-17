@@ -17,3 +17,35 @@ LEVEL-ONE HOMOSCEDASTICITY
 Homoscedasticity test statistic (H): 22.369
 Homoscedasticity test degrees of freedom: 8
 Homoscedasticity test p-value (significance indicates heteroscedasticity): 0.004
+LEVEL-TWO OUTLIERS
+Total level-two outliers: 6
+Mean total observations per level-two unit: 3.82
+Mean observations for outlying level-two units: 2.67
+Percentage of outliers with fewer observations than the overall average: 66.67
+
+LEVEL-TWO UNIT INFLUENCE
+Mean Cook's distances: 0.013
+Standard deviation of Cook's distances: 0.023
+Minimum Cook's distance: 4.49093186454579e-06
+Maximum Cook's distance: 0.14748895283538
+Percentage of level-two units with potentially problematic Cook's distances (greater than 1; Field et al., 2014): 0
+Percentage of level-two units with potentially problematic Cook's distances (greater than 4/n; Nieuwenhuis et al., 2012): 4.494
+LEVEL-TWO OUTLIERS
+Total level-two outliers: 7
+Mean total observations per level-two unit: 3.82
+Mean observations for outlying level-two units: 2.86
+Percentage of outliers with fewer observations than the overall average: 57.14
+
+LEVEL-TWO UNIT INFLUENCE
+Mean Cook's distances: 0.013
+Standard deviation of Cook's distances: 0.021
+Minimum Cook's distance: 1.06718856892416e-05
+Maximum Cook's distance: 0.133010321464538
+Percentage of level-two units with potentially problematic Cook's distances (greater than 1; Field et al., 2014): 0
+Percentage of level-two units with potentially problematic Cook's distances (greater than 4/n; Nieuwenhuis et al., 2012): 4.494
+Percentage of level-two units that would change predictor significance if removed from model: 0
+
+LEVEL-ONE HOMOSCEDASTICITY
+Homoscedasticity test statistic (H): 25.91
+Homoscedasticity test degrees of freedom: 8
+Homoscedasticity test p-value (significance indicates heteroscedasticity): 0.001
