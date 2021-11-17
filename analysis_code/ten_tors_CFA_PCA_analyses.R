@@ -336,12 +336,12 @@ print.psych(PCA.threat.one.factor_t2, cut = 0.3, sort = TRUE)
 summary(prcomp(threat_dat_t2, scale = TRUE)) #this gives a more accurate proportion of variance explained by the first component (PC1)
 
 #Cronbach's alpha for all factors together
-psych::alpha(threat_dat_t2) #this yeilds an unacceptable (.64) Cronbach's alpha
+psych::alpha(threat_dat_t2)
 
 ### ### ###
 
 #Cronbach's alpha for all questions on threat outcome (warning a result of running analysis on only two variables)
-psych::alpha(threat_dat_t2[, c("Q28a.1nega", "Q28a.6nega")]) #this yeilds an acceptable (.78) Cronbach's alpha
+psych::alpha(threat_dat_t2[, c("Q28a.1nega", "Q28a.6nega")])
 
 #get the descriptives of this component - threat outcome
 PCA.threat_outcome.one.factor_t2 = principal(threat_dat_t2[c("Q28a.1nega", "Q28a.6nega")], nfactors = 1, rotate = "oblimin", scores = TRUE)
@@ -351,7 +351,7 @@ summary(prcomp(threat_dat_t2[, c("Q28a.1nega", "Q28a.6nega")], scale = TRUE))
 ### ### ###
 
 #Cronbach's alpha for all questions on emotional reactions to the challenge (warning a result of running analysis on only two variables)
-psych::alpha(threat_dat_t2[c("Q282threat", "Q285Anx")]) #this yeilds an unacceptable (.67) Cronbach's alpha (warning can be ignored)
+psych::alpha(threat_dat_t2[c("Q282threat", "Q285Anx")])
 
 #get the descriptives of this component - threat emotion
 PCA.threat_emotion.one.factor_t2 =principal(threat_dat_t2[c("Q282threat", "Q285Anx")], nfactors = 1, rotate = "oblimin", scores = TRUE)
@@ -370,10 +370,10 @@ dat = transform(merge(dat, threat_dat_t2_id[, c("threat_t2", "threat_t2_outcome"
 t = dat[,c("GeneralIndex", "Q4.7Circles", "Q4.9.1Connect", "Q4.9.2Bond", "Q4.9.3Commit",
            "Q282threat", "Q285Anx", "Q28a.1nega", "Q28a.6nega","threat_t2", "threat_t2_outcome", "threat_t2_emotion", "GeneralIndex")]
 
-#which variable has the most variance
+#check which variable has the most variance
 hist(dat$threat_t2)
 hist(dat$threat_t2_emotion)
-hist(dat$threat_t2_outcome) #this variable has almost no variance, and probably should not be used.
+hist(dat$threat_t2_outcome)
 
 ### CREATION OF CHALLENGE AND CENTRALITY VARIABLES ###
 
@@ -382,10 +382,16 @@ hist(dat$threat_t2_outcome) #this variable has almost no variance, and probably 
 dat$challenge_t2 = rowMeans(dat[,c("Q281.impact", "Q28a.3Eager", "Q28a.5Stron", "Q284Excite")], na.rm = TRUE)
 dat$centrality_t2 = rowMeans(dat[,c("Q286Conse", "Q283Affect", "Q28a.2Impli", "Q28a.4Long")], na.rm = TRUE)
 
+#Cronbach's alpha and McDonald's omega for both factors
+psych::alpha(dat[,c("Q281.impact", "Q28a.3Eager", "Q28a.5Stron", "Q284Excite")])
+psych::omega(dat[,c("Q281.impact", "Q28a.3Eager", "Q28a.5Stron", "Q284Excite")])
+
+psych::alpha(dat[,c("Q286Conse", "Q283Affect", "Q28a.2Impli", "Q28a.4Long")])
+psych::omega(dat[,c("Q286Conse", "Q283Affect", "Q28a.2Impli", "Q28a.4Long")])
+
 #convert NaNs to NAs
 is.nan.data.frame <- function(x)
   do.call(cbind, lapply(x, is.nan))
-
 dat[is.nan(dat)] = NA
 
 #test the data structure
@@ -645,24 +651,30 @@ mean(c(sd(dat$Q23a.1Annoy, na.rm = TRUE), sd(dat$Q23a.5Bitter, na.rm = TRUE), sd
 round(cbind(m1=inspect(fit0, 'fit.measures'), m2=inspect(fit6, 'fit.measures')),3)
 anova(fit0, fit6)
 
-#Cronbach's alpha for the emotional and esteem factors (exclude "anger" question because factor loading is less than .4)
+#Cronbach's alpha and McDonald's omega for the emotional and esteem factors (exclude "anger" question because factor loading is less than .4)
 tension_data_t2 = na.exclude(dat[,c("Q231Panicky",  "Q23c.2Anx",  "Q23b.1Worr", "Q23b.5Nerv")])
-psych::alpha(tension_data_t2) #this yeilds an acceptable (.89) Cronbach's alpha
+psych::alpha(tension_data_t2)
+psych::omega(tension_data_t2)
 
 vigour_data_t2 = na.exclude(dat[,c("Q232Lively", "Q23b.2Energ", "Q23c.1Acti", "Q23c.5Alert")])
-psych::alpha(vigour_data_t2) #this yeilds an acceptable (.75) Cronbach's alpha
+psych::alpha(vigour_data_t2)
+psych::omega(vigour_data_t2)
 
 confusion_data_t2 = na.exclude(dat[,c("Q233Confused", "Q23a.3Mix", "Q23b.4Muddl", "Q23c.6Uncet")])
-psych::alpha(confusion_data_t2) #this yeilds an acceptable (.61) Cronbach's alpha
+psych::alpha(confusion_data_t2)
+psych::omega(confusion_data_t2)
 
 fatigue_data_t2 = na.exclude(dat[,c("Q34Worn", "Q23a.2Exhaust", "Q23a.4Sleep", "Q23c.4Tire")])
-psych::alpha(fatigue_data_t2) #this yeilds an acceptable (.80) Cronbach's alpha
+psych::alpha(fatigue_data_t2)
+psych::omega(fatigue_data_t2)
 
 depression_data_t2 = na.exclude(dat[,c("Q235Depres", "Q236Down", "Q23a.6Unhap", "Q23b.3Mis")])
-psych::alpha(depression_data_t2) #this yeilds an acceptable (.74) Cronbach's alpha
+psych::alpha(depression_data_t2)
+psych::omega(depression_data_t2)
 
 anger_data_t2 = na.exclude(dat[,c("Q23a.1Annoy", "Q23a.5Bitter", "Q23c.3BadT")])
-psych::alpha(anger_data_t2) #this yeilds an acceptable (.74) Cronbach's alpha
+psych::alpha(anger_data_t2)
+psych::omega(anger_data_t2)
 
 #percetage of variance explained
 print(principal(tension_data_t2, nfactors = 1, scores = TRUE))
@@ -939,24 +951,30 @@ inspect(fit6,what="std")$lambda
 round(cbind(m1=inspect(fit0, 'fit.measures'), m2=inspect(fit6, 'fit.measures')),3)
 anova(fit0, fit6)
 
-#Cronbach's alpha for the emotional and esteem factors (exclude "anger" question because factor loading is less than .4)
+#Cronbach's alpha and McDonald's omega for the emotional and esteem factors
 tension_data_t3 = na.exclude(dat[,c("Q3.5.1Panicky", "Q3.5.c.2Anx", "Q3.5.b.1Worri", "Q3.5.b.5Nerv")])
-psych::alpha(tension_data_t3) #this yeilds an acceptable (.81) Cronbach's alpha
+psych::alpha(tension_data_t3)
+psych::omega(tension_data_t3)
 
 vigour_data_t3 = na.exclude(dat[,c("Q3.5.2Lively", "Q3.5.b.2Energ", "Q3.5.c.1Activ", "Q3.5.c.5Alert")])
-psych::alpha(vigour_data_t3) #this yeilds an acceptable (.76) Cronbach's alpha
+psych::alpha(vigour_data_t3)
+psych::omega(vigour_data_t3)
 
 confusion_data_t3 = na.exclude(dat[,c("Q3.5.3Confus", "Q3.5.a.3Mix", "Q3.5.b.4Muddl", "Q3.5.c.6Uncer")])
-psych::alpha(confusion_data_t3) #this yeilds an acceptable (.75) Cronbach's alpha
+psych::alpha(confusion_data_t3)
+psych::omega(confusion_data_t3)
 
 fatigue_data_t3 = na.exclude(dat[,c("Q3.5.4Worn", "Q3.5.a.2Exhaus", "Q3.5.a.4Sleep", "Q3.5.c.4Tire")])
-psych::alpha(fatigue_data_t3) #this yeilds an acceptable (.85) Cronbach's alpha
+psych::alpha(fatigue_data_t3)
+psych::omega(fatigue_data_t3)
 
 depression_data_t3 = na.exclude(dat[,c("Q3.5.5Depres", "Q3.5.6Down", "Q3.5.a.6Unhap", "Q3.5.b.3Mis")])
-psych::alpha(depression_data_t3) #this yeilds an acceptable (.90) Cronbach's alpha
+psych::alpha(depression_data_t3)
+psych::omega(depression_data_t3)
 
-anger_data_t3 = na.exclude(dat[,c("Q3.5.a.1Annoy", "Q3.5.a.5Bitt", "Q3.5.b.6Angr", "Q3.5.c.3BadT")])
-psych::alpha(anger_data_t3) #this yeilds an acceptable (.87) Cronbach's alpha
+anger_data_t3 = na.exclude(dat[,c("Q3.5.a.1Annoy", "Q3.5.a.5Bitt", "Q3.5.c.3BadT")])
+psych::alpha(anger_data_t3)
+psych::omega(anger_data_t3)
 
 #percetage of variance explained
 print(principal(tension_data_t3, nfactors = 1, scores = TRUE))
@@ -975,7 +993,7 @@ dat$vigour_t3 = rowMeans(dat[,c("Q3.5.2Lively", "Q3.5.b.2Energ", "Q3.5.c.1Activ"
 dat$confusion_t3 = rowMeans(dat[,c("Q3.5.3Confus", "Q3.5.a.3Mix", "Q3.5.b.4Muddl", "Q3.5.c.6Uncer")], na.rm = TRUE)
 dat$fatigue_t3 = rowMeans(dat[,c("Q3.5.4Worn", "Q3.5.a.2Exhaus", "Q3.5.a.4Sleep", "Q3.5.c.4Tire")], na.rm = TRUE)
 dat$depression_t3 = rowMeans(dat[,c("Q3.5.5Depres", "Q3.5.6Down", "Q3.5.a.6Unhap", "Q3.5.b.3Mis")], na.rm = TRUE)
-dat$anger_t3 = rowMeans(dat[,c("Q3.5.a.1Annoy", "Q3.5.a.5Bitt", "Q3.5.b.6Angr", "Q3.5.c.3BadT")], na.rm = TRUE)
+dat$anger_t3 = rowMeans(dat[,c("Q3.5.a.1Annoy", "Q3.5.a.5Bitt", "Q3.5.c.3BadT")], na.rm = TRUE)
 
 #convert NaNs to NAs
 dat[is.nan(dat)] = NA
@@ -1166,15 +1184,18 @@ inspect(fit3,what="std")$lambda
 round(cbind(m1=inspect(fit0, 'fit.measures'), m2=inspect(fit3, 'fit.measures')),3)
 anova(fit0, fit3)
 
-#Cronbach's alpha for the perceptions of relationships factor
+#Cronbach's alpha and McDonald's omega for the perceptions of relationships factors
 closeness_data_t2 = na.exclude(dat[,c("Q261Close", "Q268Like", "Q26a.1Personal", "Q26a.5Import", "Q264Enjoy", "Q26a.2Relat")])
-psych::alpha(closeness_data_t2) #this yeilds an acceptable (.80) Cronbach's alpha
+psych::alpha(closeness_data_t2)
+psych::omega(closeness_data_t2)
 
 similarity_data_t2 = na.exclude(dat[,c("Q265Thing", "Q26a.3Attit","Q26a.7Simi", "Q262Simi")])
-psych::alpha(similarity_data_t2) #this yeilds an acceptable (.87) Cronbach's alpha
+psych::alpha(similarity_data_t2)
+psych::omega(similarity_data_t2)
 
 centrality_data_t2 = na.exclude(dat[,c("Q267Oft", "Q26a.6EDay", "Q263Talk")])
-psych::alpha(centrality_data_t2) #this yeilds an acceptable (.76) Cronbach's alpha
+psych::alpha(centrality_data_t2)
+psych::omega(centrality_data_t2)
 
 #percetage of variance explained
 PCA.closeness_t2 = principal(closeness_data_t2, nfactors = 1, scores = TRUE)
@@ -1380,15 +1401,18 @@ inspect(fit3,what="std")$lambda
 round(cbind(m1=inspect(fit0, 'fit.measures'), m2=inspect(fit3, 'fit.measures')),3)
 anova(fit0, fit3)
 
-#Cronbach's alpha for the perceptions of relationships factor
-closeness_data_t4 = na.exclude(dat[,c("Q4.8.1Close", "Q4.8.8Like", "Q4.8.a.1Personal", "Q4.8.a.5Import", "Q4.8.a.4Opin", "Q4.8.4Time", "Q4.8.a.2Relat")])
-psych::alpha(closeness_data_t4) #this yeilds an acceptable (.89) Cronbach's alpha
+#Cronbach's alpha and McDonald's omega for the perceptions of relationships factors
+closeness_data_t4 = na.exclude(dat[,c("Q4.8.1Close", "Q4.8.8Like", "Q4.8.a.1Personal", "Q4.8.a.5Import", "Q4.8.4Time", "Q4.8.a.2Relat")])
+psych::alpha(closeness_data_t4)
+psych::omega(closeness_data_t4)
 
 similarity_data_t4 = na.exclude(dat[,c("Q4.8.5Things", "Q4.8.a.3Attit", "Q4.8.2Simi", "Q4.8.a.7Vsimi")])
-psych::alpha(similarity_data_t4) #this yeilds an acceptable (.92) Cronbach's alpha
+psych::alpha(similarity_data_t4)
+psych::omega(similarity_data_t4)
 
 centrality_data_t4 = na.exclude(dat[,c("Q4.8.7See", "Q4.8.a.6EDay", "Q4.8.3Talk")])
-psych::alpha(centrality_data_t4) #this yeilds an acceptable (.88) Cronbach's alpha
+psych::alpha(centrality_data_t4)
+psych::omega(centrality_data_t4)
 
 #percetage of variance explained
 PCA.closeness_t4 = principal(closeness_data_t4, nfactors = 1, scores = TRUE)
@@ -1403,7 +1427,7 @@ print(PCA.centrality_t4)
 ### VARIABLE CREATION ###
 
 #the analyses confirmed a three factor model, made up of the following three factors and their sub-questions
-dat$closeness_t4 = rowMeans(dat[,c("Q4.8.1Close", "Q4.8.8Like", "Q4.8.a.1Personal", "Q4.8.a.5Import", "Q4.8.a.4Opin", "Q4.8.4Time", "Q4.8.a.2Relat")], na.rm = TRUE)
+dat$closeness_t4 = rowMeans(dat[,c("Q4.8.1Close", "Q4.8.8Like", "Q4.8.a.1Personal", "Q4.8.a.5Import", "Q4.8.4Time", "Q4.8.a.2Relat")], na.rm = TRUE)
 dat$similarity_t4 = rowMeans(dat[,c("Q4.8.5Things", "Q4.8.a.3Attit", "Q4.8.2Simi", "Q4.8.a.7Vsimi")], na.rm = TRUE)
 dat$eday_centrality_t4 = rowMeans(dat[,c("Q4.8.7See", "Q4.8.a.6EDay", "Q4.8.3Talk")], na.rm = TRUE)
 
@@ -1585,10 +1609,11 @@ inspect(fit1,what="std")$lambda
 round(cbind(m1=inspect(fit0, 'fit.measures'), m2=inspect(fit1, 'fit.measures')),3)
 anova(fit0, fit1)
 
-#Cronbach's alpha for the wellness factor
+#Cronbach's alpha and McDonald's omega for the wellness factor
 wellbeing_data_t1 = na.exclude(dat[,c("Q1.3.1Optim", "Q1.3.2Useful", "Q1.3.3Relax", "Q1.3.5Energy","Q1.3.6Probl",
                                       "Q1.3.7Clear", "Q1.4.1Good", "Q1.4.2Close", "Q1.4.3Confi", "Q1.4.4Mind", "Q1.4.7Cheer")])
-psych::alpha(wellbeing_data_t1) #this yeilds an acceptable (.84) Cronbach's alpha
+psych::alpha(wellbeing_data_t1)
+psych::omega(wellbeing_data_t1)
 
 #percetage of variance explained
 PCA.wellbeing_t1 = principal(wellbeing_data_t1, nfactors = 1, scores = TRUE)
@@ -1778,10 +1803,11 @@ inspect(fit1,what="std")$lambda
 round(cbind(m1=inspect(fit0, 'fit.measures'), m2=inspect(fit1, 'fit.measures')),3)
 anova(fit0, fit1)
 
-#Cronbach's alpha for wellness factor
-wellbeing_data_t4 = na.exclude(dat[,c("Q4.5.1Optim", "Q4.5.2Use", "Q4.5.3Relax", "Q4.5.4Intere", "Q4.5.5Energ", "Q4.5.6Probl", "Q4.5.7Clear",
-                                      "Q4.6.1Good", "Q4.6.2Close", "Q4.6.3Confi", "Q4.6.4Mind", "Q4.6.5Love", "Q4.6.6New", "Q4.6.7Cheer")])
-psych::alpha(wellbeing_data_t4) #this yeilds an acceptable (.88) Cronbach's alpha
+#Cronbach's alpha and McDonald's omega for wellness factor (exclude items that were excluded at T1)
+wellbeing_data_t4 = na.exclude(dat[,c("Q4.5.1Optim", "Q4.5.2Use", "Q4.5.3Relax", "Q4.5.5Energ", "Q4.5.6Probl", "Q4.5.7Clear",
+                                      "Q4.6.1Good", "Q4.6.2Close", "Q4.6.3Confi", "Q4.6.4Mind", "Q4.6.7Cheer")])
+psych::alpha(wellbeing_data_t4)
+psych::omega(wellbeing_data_t4)
 
 #percetage of variance explained
 PCA.wellbeing_t4 = principal(wellbeing_data_t4, nfactors = 1, scores = TRUE)
@@ -1789,9 +1815,9 @@ print(PCA.wellbeing_t4)
 
 ### VARIABLE CREATION ###
 
-#the analyses confirmed a one factor model, made up of the following sub-questions
-dat$wellbeing_t4 = rowMeans(dat[,c("Q4.5.1Optim", "Q4.5.2Use", "Q4.5.3Relax", "Q4.5.4Intere", "Q4.5.5Energ", "Q4.5.6Probl", "Q4.5.7Clear",
-                                   "Q4.6.1Good", "Q4.6.2Close", "Q4.6.3Confi", "Q4.6.4Mind", "Q4.6.5Love", "Q4.6.6New", "Q4.6.7Cheer")], na.rm = TRUE)
+#the analyses confirmed a one factor model, made up of the following sub-questions (exclude items excluded for the `wellbeing_t1` factor)
+dat$wellbeing_t4 = rowMeans(dat[,c("Q4.5.1Optim", "Q4.5.2Use", "Q4.5.3Relax", "Q4.5.5Energ", "Q4.5.6Probl", "Q4.5.7Clear",
+                                   "Q4.6.1Good", "Q4.6.2Close", "Q4.6.3Confi", "Q4.6.4Mind", "Q4.6.7Cheer")], na.rm = TRUE)
 
 #convert NaNs to NAs
 dat[is.nan(dat)] = NA
@@ -1801,7 +1827,7 @@ t = dat[,c("GeneralIndex", "Q4.6.3Confi", "wellbeing_t4", "anger_t3")]
 
 ################################################################################################################################################
 
-### CONFIRMATORY FACTOR ANALYSIS ON THE GROUP INTERDEPENDENCE SCALE (T2) ###
+### CONFIRMATORY FACTOR ANALYSIS ON THE BEHAVIOURAL INTERDEPENDENCE COMPONENT OF THE GROUP IDENTIFICATION SCALE (T2) ###
 
 #reverse score variables
 dat$Q251RelyR = 8 - dat$Q251Rely
@@ -1894,7 +1920,8 @@ anova(fit0, fit1)
 
 #Cronbach's alpha for the group interdependence factor
 interdependence_data_t2 = na.exclude(dat[,c("Q252Cont", "Q253TWork", "Q254CoopR")])
-psych::alpha(interdependence_data_t2) #this yeilds a rather unacceptable (.55) Cronbach's alpha
+psych::alpha(interdependence_data_t2)
+psych::omega(interdependence_data_t2)
 
 #percetage of variance explained
 PCA.interdependence_t2 = principal(interdependence_data_t2, nfactors = 1, scores = TRUE)
@@ -2003,9 +2030,10 @@ anova(fit0, fit1)
 #the analyses confirmed a one factor model, made up of the following four questions
 dat$collective_efficacy_t2 = rowMeans(dat[, c("Q291Able", "Q292Prep", "Q293Distr", "Q294Perf")], na.rm = TRUE)
 
-#Cronbach's alpha for the collective efficacy factor
+#Cronbach's alpha and McDonald's omega for the collective efficacy factor
 collective_efficacy_t2 = na.exclude(dat[,c("Q291Able", "Q292Prep", "Q293Distr", "Q294Perf")])
-psych::alpha(collective_efficacy_t2) #this yeilds an acceptable (.79) Cronbach's alpha
+psych::alpha(collective_efficacy_t2)
+psych::omega(collective_efficacy_t2)
 
 #percentage of variance explained
 PCA.collective_efficacy_t2 = principal(collective_efficacy_t2, nfactors = 1, scores = TRUE)
@@ -2184,12 +2212,14 @@ anova(fit0, fit1)
 dat$perceived_support_t2_emotional = rowMeans(dat[,c("Q2.10.1Comf", "Q2.10.a.3Concern", "Q2.10.a.1Care", "Q2.10.4Be")], na.rm = TRUE)
 dat$perceived_support_t2_esteem =  rowMeans(dat[,c("Q2.10.2Posi", "Q2.10.3Confi", "Q2.10.a.2Boost", "Q2.10.a.4SEst")], na.rm = TRUE)
 
-#Cronbach's alpha for the emotional and esteem support factors
+#Cronbach's alpha and McDonald's omega for the emotional and esteem support factors
 emotional_data_t2 = na.exclude(dat[,c("Q2.10.1Comf", "Q2.10.a.3Concern", "Q2.10.a.1Care", "Q2.10.4Be")])
-psych::alpha(emotional_data_t2) #this yeilds an acceptable (.87) Cronbach's alpha
+psych::alpha(emotional_data_t2)
+psych::omega(emotional_data_t2)
 
 esteem_data_t2 = na.exclude(dat[,c("Q2.10.2Posi", "Q2.10.3Confi", "Q2.10.a.2Boost", "Q2.10.a.4SEst")])
-psych::alpha(esteem_data_t2) #this yeilds an acceptable (.88) Cronbach's alpha
+psych::alpha(esteem_data_t2)
+psych::omega(esteem_data_t2)
 
 #percetage of variance explained
 PCA.emotional_t2 = principal(emotional_data_t2, nfactors = 1, scores = TRUE)
@@ -2206,7 +2236,7 @@ t = dat[, c("GeneralIndex", "collective_efficacy_t2", "Q2.10.a.1Care", "perceive
 
 ################################################################################################################################################
 
-### CONFIRMATORY FACTOR ANALYSIS ON THE PERCEIVED AVAILABLE SUPPORT IN SPORTS SCALE AT T3 ###
+### CONFIRMATORY FACTOR ANALYSIS ON ATHLETE'S RECEIVED SUPPORT QUESTIONNAIRE AT T3 ###
 
 #create a data frame of the variables of interest
 received_support_t3 = dat[c("Q3.10.1Cheer", "Q3.10.2Able", "Q3.10.3.ves", "Q3.10.4Listen", "Q3.10.5Comfort",
@@ -2384,12 +2414,14 @@ anova(fit0, fit1)
 dat$received_support_t3_emotional = rowMeans(dat[,c("Q3.10.1Cheer", "Q3.10.4Listen", "Q3.10.a.1Concern", "Q3.10.a.5Be",  "Q3.10.5Comfort")], na.rm = TRUE)
 dat$received_support_t3_esteem = rowMeans(dat[,c("Q3.10.2Able", "Q3.10.3.ves", "Q3.10.a.2Can", "Q3.10.a.3Encourage", "Q3.10.a.4Confi")], na.rm = TRUE)
 
-#Cronbach's alpha for the emotional and esteem support factors
+#Cronbach's alpha and McDonald's omega for the emotional and esteem support factors
 emotional_data_t3 = na.exclude(dat[,c("Q3.10.1Cheer", "Q3.10.4Listen", "Q3.10.a.1Concern", "Q3.10.a.5Be",  "Q3.10.5Comfort")])
-psych::alpha(emotional_data_t3) #this yeilds an acceptable (.84) Cronbach's alpha
+psych::alpha(emotional_data_t3)
+psych::omega(emotional_data_t3)
 
 esteem_data_t3 = na.exclude(dat[,c("Q3.10.2Able", "Q3.10.3.ves","Q3.10.a.2Can", "Q3.10.a.3Encourage", "Q3.10.a.4Confi")])
-psych::alpha(esteem_data_t3) #this yeilds an acceptable (.88) Cronbach's alpha
+psych::alpha(esteem_data_t3)
+psych::omega(esteem_data_t3)
 
 #percetage of variance explained
 PCA.emotional_t3 = principal(emotional_data_t3, nfactors = 1, scores = TRUE)
@@ -2436,11 +2468,12 @@ PCA.bonding.one.factor_t2 =principal(bonding_dat_t2[, -which(names(bonding_dat_t
 print.psych(PCA.bonding.one.factor_t2, cut = 0.3, sort = TRUE) 
 summary(prcomp(bonding_dat_t2[, -which(names(bonding_dat_t2) %in% c("GeneralIndex"))], scale = TRUE)) #this gives a more accurate proportion of variance explained by the first component (PC1)
 
-#Cronbach's alpha for all the factors together
+#Cronbach's alpha and McDonald's omega for all the factors together
 psych::alpha(bonding_dat_t2[, -which(names(bonding_dat_t2) %in% c("GeneralIndex"))]) #this yeilds an acceptable (.78) Cronbach's alpha
+psych::omega(bonding_dat_t2[, -which(names(bonding_dat_t2) %in% c("GeneralIndex"))]) #this yeilds an acceptable (.78) Cronbach's alpha
 
 #Cronbach's alpha for the three non-fusion variables
-psych::alpha(bonding_dat_t2[c("Q271Conn", "Q272Bond", "Q273Commi")]) #the Cronbach's alpha (.83) is relatively unchanged
+psych::alpha(bonding_dat_t2[c("Q271Conn", "Q272Bond", "Q273Commi")])
 
 #since there is little difference in the Cronbach's alphas for the factors with three and four variables, all four are included
 bonding_dat_t2$bonding_t2 = PCA.bonding.one.factor_t2$scores[,1]
@@ -2484,11 +2517,12 @@ PCA.bonding.one.factor_t3 =principal(bonding_dat_t3[, -which(names(bonding_dat_t
 print.psych(PCA.bonding.one.factor_t3, cut = 0.3, sort = TRUE) 
 summary(prcomp(bonding_dat_t3[, -which(names(bonding_dat_t3) %in% c("GeneralIndex"))], scale = TRUE)) #this gives a more accurate proportion of variance explained by the first component (PC1)
 
-#Cronbach's alpha for the all factors together
-psych::alpha(bonding_dat_t3[, -which(names(bonding_dat_t3) %in% c("GeneralIndex"))]) #this yeilds an acceptable (.84) Cronbach's alpha
+#Cronbach's alpha and McDonald's omega for the all factors together
+psych::alpha(bonding_dat_t3[, -which(names(bonding_dat_t3) %in% c("GeneralIndex"))])
+psych::omega(bonding_dat_t3[, -which(names(bonding_dat_t3) %in% c("GeneralIndex"))])
 
 #Cronbach's alpha for the three non-fusion variables
-psych::alpha(bonding_dat_t3[, -which(names(bonding_dat_t3) %in% c("GeneralIndex"))][c("Q3.8.1Connect", "Q3.8.2Bond", "Q3.8.3.Commit")]) #the Cronbach's alpha (.89) is relatively unchanged
+psych::alpha(bonding_dat_t3[, -which(names(bonding_dat_t3) %in% c("GeneralIndex"))][c("Q3.8.1Connect", "Q3.8.2Bond", "Q3.8.3.Commit")])
 
 #since there is little difference in the Cronbachs alphas for the components with three and four variables, all four are included
 bonding_dat_t3$bonding_t3 = PCA.bonding.one.factor_t3$scores[,1]
@@ -2498,7 +2532,7 @@ library(plyr)
 dat = transform(merge(dat, bonding_dat_t3[,c("bonding_t3", "GeneralIndex")], by = "GeneralIndex", all = T))
 
 #test the data structure
-t = dat[,c("GeneralIndex", "Q2.4Circles", "Q3.7Circles", "Q3.8.1Connect", "Q3.8.2Bond", "Q3.8.3.Commit", "bonding_t3", "bonding_t2", "GeneralIndex")]
+t = dat[,c("GeneralIndex", "Q2.4Circles", "Q3.7Circles", "Q3.8.1Connect", "Q3.8.2Bond", "Q3.8.3.Commit", "bonding_t3", "bonding_t2")]
 
 ################################################################################################################################################
 
@@ -2531,8 +2565,9 @@ PCA.bonding.one.factor_t4 =principal(bonding_dat_t4[, -which(names(bonding_dat_t
 print.psych(PCA.bonding.one.factor_t4, cut = 0.3, sort = TRUE) 
 summary(prcomp(bonding_dat_t4[, -which(names(bonding_dat_t4) %in% c("GeneralIndex"))], scale = TRUE)) #this gives a more accurate proportion of variance explained by the first component (PC1)
 
-#Cronbach's alpha for the all factors together
+#Cronbach's alpha and McDonald's omega for the all factors together
 psych::alpha(bonding_dat_t4[, -which(names(bonding_dat_t4) %in% c("GeneralIndex"))]) #this yeilds an acceptable (.87) Cronbach's alpha
+psych::omega(bonding_dat_t4[, -which(names(bonding_dat_t4) %in% c("GeneralIndex"))]) #this yeilds an acceptable (.87) Cronbach's alpha
 
 #Cronbach's alpha for the three non-fusion variables
 psych::alpha(bonding_dat_t4[c("Q4.9.1Connect", "Q4.9.2Bond", "Q4.9.3Commit")]) #the Cronbach's alpha (.92) is relatively unchanged
@@ -2545,10 +2580,8 @@ library(plyr)
 dat = transform(merge(dat, bonding_dat_t4[,c("bonding_t4", "GeneralIndex")], by = "GeneralIndex", all = T))
 
 #test the data structure
-t = dat[,c("GeneralIndex", "Q2.4Circles", "Q271Conn", "Q272Bond", "Q273Commi",
-           "Q3.7Circles", "Q3.8.1Connect", "Q3.8.2Bond", "Q3.8.3.Commit",
-           "Q4.7Circles", "Q4.9.1Connect", "Q4.9.2Bond", "Q4.9.3Commit",
-           "bonding_t2", "bonding_t3", "bonding_t4")]
+t = dat[,c("GeneralIndex", "Q2.4Circles", "Q271Conn", "Q272Bond", "Q273Commi", "Q3.7Circles", "Q3.8.1Connect", "Q3.8.2Bond", "Q3.8.3.Commit",
+           "Q4.7Circles", "Q4.9.1Connect", "Q4.9.2Bond", "Q4.9.3Commit", "bonding_t2", "bonding_t3", "bonding_t4")]
 
 ################################################################################################################################################
 
@@ -2571,20 +2604,19 @@ KMO(phys_diff_dat_t3[, -which(names(phys_diff_dat_t3) %in% c("GeneralIndex"))])
 det(phys_diff.matrix) #this is not problematic (since it is greater than .00001)
 
 #the PCA: analyses suggest extracting either one or two factors (everything and then fusion on its own)
-PCA.phys_diff.one.factor_t3 =principal(phys_diff_dat_t3[, -which(names(phys_diff_dat_t3) %in% c("GeneralIndex"))], nfactors = 1, rotate = "oblimin", scores = TRUE)
+PCA.phys_diff.one.factor_t3 = principal(phys_diff_dat_t3[, -which(names(phys_diff_dat_t3) %in% c("GeneralIndex"))], nfactors = 1, rotate = "oblimin", scores = TRUE)
 print.psych(PCA.phys_diff.one.factor_t3, cut = 0.3, sort = TRUE) 
 summary(prcomp(phys_diff_dat_t3[, -which(names(phys_diff_dat_t3) %in% c("GeneralIndex"))], scale = TRUE))
 
 #get the correlation between the two variables
-cor(phys_diff_dat_t3$Q3.6.1Pain, phys_diff_dat_t3$Q3.6.2Fatigue) #this is rather weak
+cor(phys_diff_dat_t3$Q3.6.1Pain, phys_diff_dat_t3$Q3.6.2Fatigue)
 
-#add all three components to the dataset
+#add the component to the dataset
 phys_diff_dat_t3$phys_diff_t3 = PCA.phys_diff.one.factor_t3$scores[,1]
 dat = transform(merge(dat, phys_diff_dat_t3[,c("phys_diff_t3", "GeneralIndex")], by = "GeneralIndex", all = T))
 
 #test the data structure 
-t = dat[,c("GeneralIndex", "Q4.7Circles", "Q4.9.1Connect", "Q4.9.2Bond", "Q4.9.3Commit",
-           "Q3.6.1Pain", "Q3.6.2Fatigue", "phys_diff_t3")]
+t = dat[,c("GeneralIndex", "Q4.7Circles", "Q4.9.1Connect", "Q4.9.2Bond", "Q4.9.3Commit", "Q3.6.1Pain", "Q3.6.2Fatigue", "phys_diff_t3")]
 
 ################################################################################################################################################
 
@@ -2691,6 +2723,588 @@ dat = transform(merge(dat, experienced_interdependence_dat_t3[,c("experienced_in
 
 #test the data structure (it looks good so far)
 t = dat[, c("GeneralIndex", "Q4.7Circles", "Q3.9.1Need", "Q3.9.2Help", "experienced_interdependence_t3")]
+
+################################################################################################################################################
+
+### MEASUREMENT INVARIANCE - WELLBEING (T1 & T4) ###
+
+library(stringr)
+library(semTools)
+
+#create a 'not in' function
+'%!in%' <- function(x,y)!('%in%'(x,y))
+
+#create a dataset that combines scores from each time point
+wellbeing_dat = dat[, c("Q1.3.1Optim",
+                        "Q1.3.2Useful",
+                        "Q1.3.3Relax",
+                        "Q1.3.5Energy",
+                        "Q1.3.6Probl",
+                        "Q1.3.7Clear",
+                        "Q1.4.1Good",
+                        "Q1.4.2Close",
+                        "Q1.4.3Confi",
+                        "Q1.4.4Mind",
+                        "Q1.4.7Cheer",
+                        "Q4.5.1Optim",
+                        "Q4.5.2Use",
+                        "Q4.5.3Relax",
+                        "Q4.5.5Energ",
+                        "Q4.5.6Probl",
+                        "Q4.5.7Clear",
+                        "Q4.6.1Good",
+                        "Q4.6.2Close",
+                        "Q4.6.3Confi",
+                        "Q4.6.4Mind",
+                        "Q4.6.7Cheer")]
+
+#rename non-matching variables (and then remove the variables names to drop)
+wellbeing_dat$Q4.5.2Useful = wellbeing_dat$Q4.5.2Use
+wellbeing_dat$Q4.5.5Energy = wellbeing_dat$Q4.5.5Energ
+
+drops = c("Q4.5.2Use", "Q4.5.5Energ")
+wellbeing_dat = wellbeing_dat[ , !(names(wellbeing_dat) %in% drops)]
+
+#create a longform dataset
+wellbeing_dat_long = data.frame(matrix(NA, nrow = 2*nrow(wellbeing_dat), ncol = 0))
+wellbeing_dat_long$time = c(rep(1, nrow(wellbeing_dat)), rep(4, nrow(wellbeing_dat)))
+
+#combine the measures from different times frames into the same variable
+for (n in names(wellbeing_dat)){
+  
+  #get the variable name
+  var_nam = str_split(gsub("[[:digit:]]","",n), "...", n = 2)[[1]][2]
+  print(var_nam)
+  
+  #add it to the new dataframe if it is not alreay in there
+  if (var_nam %!in% names(wellbeing_dat_long)){
+    wellbeing_dat_long[, var_nam] = c(wellbeing_dat[, n], rep(NA, nrow(wellbeing_dat)))
+    if (grepl("Q4", n)){
+    }
+    
+  } else{
+    
+    #if the variable is already in the dataset, add the values to the second half
+    wellbeing_dat_long[, var_nam] = c(wellbeing_dat_long[, var_nam][1:nrow(wellbeing_dat)], wellbeing_dat[, n])
+  }
+}
+
+### CONFIGURAL INVARIANCE ###
+
+#create the one factor model
+wb_model = 'wellbeing =~ Optim + Useful + Relax + Energy + Probl + Clear + Good + Close + Confi + Mind + Cheer
+            wellbeing ~~ wellbeing'
+
+#configural model summary
+wb_model_config = cfa(wb_model, data = wellbeing_dat_long, estimator = "WLSMV", group = "time")
+summary(wb_model_config, fit.measures = TRUE, standardized = TRUE)
+
+### METRIC INVARIANCE ###
+
+#metric model summary
+wb_model_metric = cfa(wb_model, data = wellbeing_dat_long, estimator = "WLSMV", group = "time", group.equal = "loadings")
+summary(compareFit(wb_model_config, wb_model_metric))
+
+### SCALAR INVARIANCE ###
+
+#scalar model summary
+wb_model_scalar = cfa(wb_model, data = wellbeing_dat_long, estimator = "WLSMV", group = "time", group.equal = c("loadings","intercepts"))
+summary(compareFit(wb_model_metric, wb_model_scalar))
+
+### RESIDUAL INVARIANCE ###
+
+#residual model summary
+wb_model_residual = cfa(wb_model, data = wellbeing_dat_long, estimator = "WLSMV", group = "time", group.equal = c("loadings","intercepts", "residuals"))
+summary(compareFit(wb_model_scalar, wb_model_residual))
+
+################################################################################################################################################
+
+### MEASUREMENT INVARIANCE - BONDING (T2, T3, & T4) ###
+
+#create a dataset that combines scores from each time point
+bonding_dat = dat[, c("GeneralIndex", "Q2.4Circles", "Q271Conn", "Q272Bond", "Q273Commi",
+                      "Q3.7Circles", "Q3.8.1Connect", "Q3.8.2Bond", "Q3.8.3.Commit",
+                      "Q4.7Circles", "Q4.9.1Connect", "Q4.9.2Bond", "Q4.9.3Commit")]
+
+#rename non-matching variables (and then remove the variables names to drop)
+bonding_dat$Q2.7.1Connect = bonding_dat$Q271Conn
+bonding_dat$Q2.7.2Bond = bonding_dat$Q272Bond
+bonding_dat$Q2.7.3Commit = bonding_dat$Q273Commi
+bonding_dat$Q3.8.3Commit = bonding_dat$Q3.8.3.Commit
+
+bonding_dat$Q2.4.0Circles = bonding_dat$Q2.4Circles
+bonding_dat$Q3.7.0Circles = bonding_dat$Q3.7Circles
+bonding_dat$Q4.7.0Circles = bonding_dat$Q4.7Circles
+
+drops = c("Q271Conn","Q272Bond", "Q273Commi", "Q2.4Circles", "Q3.7Circles", "Q4.7Circles", "Q3.8.3.Commit")
+bonding_dat = bonding_dat[ , !(names(bonding_dat) %in% drops)]
+
+#create a longform dataset
+bonding_dat_long = data.frame(matrix(NA, nrow = 3*nrow(bonding_dat), ncol = 0))
+bonding_dat_long$time = c(rep(2, nrow(bonding_dat)), rep(3, nrow(bonding_dat)), rep(4, nrow(bonding_dat)))
+
+#combine the measures from different times frames into the same variable
+for (n in names(bonding_dat)[2:length(names(bonding_dat))]){
+  
+  #get the variable name
+  var_nam = str_split(gsub("[[:digit:]]","",n), ".", n = 2)[[1]][2]
+  var_nam = strsplit(var_nam, "." , 2)[[1]][-1][2]
+  var_time = as.integer(substr(n, 2, 2))
+  
+  #add it to the new dataframe if it is not alreay in there
+  if (var_nam %!in% names(bonding_dat_long)){
+    if (var_time == 2){
+      bonding_dat_long[, var_nam] = c(bonding_dat[, n], rep(NA, nrow(bonding_dat)*2))
+    }
+    if (var_time == 3){
+      bonding_dat_long[, var_nam] = c(rep(NA, nrow(bonding_dat)), bonding_dat[, n], rep(NA, nrow(bonding_dat)))
+    }
+    if (var_time == 4){
+      bonding_dat_long[, var_nam] = c(rep(NA, nrow(bonding_dat)*2), bonding_dat[, n])
+    }
+    
+  } else{
+    
+    #if the variable is already in the dataset, add the remaining values depending on what has already been added 
+    if (var_time == 2){
+      bonding_dat_long[, var_nam] = c(bonding_dat[, n], bonding_dat_long[, var_nam][(nrow(bonding_dat)+1):nrow(bonding_dat_long)])
+    }
+    if (var_time == 3){
+      bonding_dat_long[, var_nam] = c(bonding_dat_long[, var_nam][1:nrow(bonding_dat)], bonding_dat[, n], bonding_dat_long[, var_nam][((nrow(bonding_dat)*2) + 1):nrow(bonding_dat_long)])
+    }
+    if (var_time == 4){
+      bonding_dat_long[, var_nam] = c(bonding_dat_long[, var_nam][1:(nrow(bonding_dat)*2)], bonding_dat[, n])
+    }    
+  }
+}
+
+### CONFIGURAL INVARIANCE ###
+
+#create the one factor model
+bonding_model = 'bonding =~ Connect + Bond + Commit + Circles
+                 bonding ~~ bonding'
+
+#configural model summary
+bonding_model_config = cfa(bonding_model, data = bonding_dat_long, estimator = "WLSMV", group = "time")
+summary(bonding_model_config, fit.measures = TRUE, standardized = TRUE)
+
+### METRIC INVARIANCE ###
+
+#metric model summary
+bonding_model_metric = cfa(bonding_model, data = bonding_dat_long, estimator = "WLSMV", group = "time", group.equal = "loadings")
+summary(compareFit(bonding_model_config, bonding_model_metric))
+
+### SCALAR INVARIANCE ###
+
+#scalar model summary
+bonding_model_scalar = cfa(bonding_model, data = bonding_dat_long, estimator = "WLSMV", group = "time", group.equal = c("loadings","intercepts"))
+summary(compareFit(bonding_model_metric, bonding_model_scalar))
+
+#this assumption is broken (at least one item intercept differs across the time periods, and scalar invariance is not supported)
+lavTestScore(bonding_model_scalar)
+
+#the `.p12.`` and `.p40.` intercept parameters should be freely estimated - this is the intercept for the observed 'Commit' latent variable
+parTable(bonding_model_scalar)
+
+#adjust the model
+bonding_model_scalar_adjusted = cfa(bonding_model, data = bonding_dat_long, estimator = "WLSMV", group = "time", group.equal = c("loadings","intercepts"), 
+                                    group.partial = c("Commit ~ 1"))
+summary(compareFit(bonding_model_metric, bonding_model_scalar_adjusted))
+
+### RESIDUAL INVARIANCE ###
+
+#residual model summary
+bonding_model_residual = cfa(bonding_model, data = bonding_dat_long, estimator = "WLSMV", group = "time", group.equal = c("loadings","intercepts", "residuals"),
+                             group.partial = c("Commit ~ 1"))
+summary(compareFit(bonding_model_scalar_adjusted, bonding_model_residual))
+
+################################################################################################################################################
+
+### MEASUREMENT INVARIANCE - PERCEPTIONS OF RELATIONSHIP SCALE (T2 & T4) ###
+
+#create a dataset that combines scores from each time point
+relationship_dat = dat[, c("Q261Close", "Q262Simi", "Q263Talk", "Q264Enjoy", "Q265Thing", "Q266Valu.R.", "Q267Oft", "Q268Like",
+                           "Q26a.1Personal", "Q26a.2Relat", "Q26a.3Attit", "Q26a.5Import", "Q26a.6EDay", "Q26a.7Simi",
+                           "Q4.8.1Close", "Q4.8.2Simi", "Q4.8.3Talk", "Q4.8.4Time", "Q4.8.5Things", "Q4.8.6ValuesR", "Q4.8.7See", "Q4.8.8Like", "Q4.8.a.1Personal", 
+                           "Q4.8.a.2Relat", "Q4.8.a.3Attit", "Q4.8.a.5Import", "Q4.8.a.6EDay", "Q4.8.a.7Vsimi")]
+
+#rename non-matching variables (and then remove the variables names to drop)
+relationship_dat$Q2.6.1Close = relationship_dat$Q261Close
+relationship_dat$Q2.6.2Simi = relationship_dat$Q262Simi
+relationship_dat$Q2.6.3Talk = relationship_dat$Q263Talk
+relationship_dat$Q2.6.4Enjoy = relationship_dat$Q264Enjoy
+relationship_dat$Q2.6.5Things = relationship_dat$Q265Thing
+relationship_dat$Q2.6.6ValuesR = relationship_dat$Q266Valu.R.
+relationship_dat$Q2.6.7See = relationship_dat$Q267Oft
+relationship_dat$Q2.6.8Like = relationship_dat$Q268Like
+relationship_dat$Q2.6.1Personal = relationship_dat$Q26a.1Personal
+relationship_dat$Q2.6.2Relat = relationship_dat$Q26a.2Relat
+relationship_dat$Q2.6.3Attit = relationship_dat$Q26a.3Attit
+relationship_dat$Q2.6.5Import = relationship_dat$Q26a.5Import
+relationship_dat$Q2.6.6EDay = relationship_dat$Q26a.6EDay
+relationship_dat$Q2.6.7VSimi = relationship_dat$Q26a.7Simi
+
+relationship_dat$Q4.8.4Enjoy = relationship_dat$Q4.8.4Time
+relationship_dat$Q4.8.1Personal = relationship_dat$Q4.8.a.1Personal
+relationship_dat$Q4.8.2Relat = relationship_dat$Q4.8.a.2Relat
+relationship_dat$Q4.8.3Attit = relationship_dat$Q4.8.a.3Attit
+relationship_dat$Q4.8.5Import = relationship_dat$Q4.8.a.5Import
+relationship_dat$Q4.8.6EDay = relationship_dat$Q4.8.a.6EDay
+relationship_dat$Q4.8.7VSimi = relationship_dat$Q4.8.a.7Vsimi
+
+drops = c("Q261Close", "Q262Simi", "Q263Talk", "Q264Enjoy", "Q265Thing", "Q266Valu.R.", "Q267Oft", "Q268Like",
+          "Q26a.1Personal", "Q26a.2Relat", "Q26a.3Attit", "Q26a.4Opin", "Q26a.5Import", "Q26a.6EDay", "Q26a.7Simi",
+          "Q4.8.4Time", "Q4.8.a.1Personal", "Q4.8.a.2Relat", "Q4.8.a.3Attit", "Q4.8.a.5Import", "Q4.8.a.6EDay", "Q4.8.a.7Vsimi")
+relationship_dat = relationship_dat[ , !(names(relationship_dat) %in% drops)]
+
+#create a longform dataset
+relationship_dat_long = data.frame(matrix(NA, nrow = 2*nrow(relationship_dat), ncol = 0))
+relationship_dat_long$time = c(rep(2, nrow(relationship_dat)), rep(4, nrow(relationship_dat)))
+
+#combine the measures from different time frames into the same variable
+for (n in names(relationship_dat)){
+  
+  #get the variable name
+  var_nam = str_split(gsub("[[:digit:]]","",n), ".", n = 2)[[1]][2]
+  var_nam = strsplit(var_nam, "." , 2)[[1]][-1][2]
+  var_time = as.integer(substr(n, 2, 2))
+  
+  #add it to the new dataframe if it is not alreay in there
+  if (var_nam %!in% names(relationship_dat_long)){
+    if (var_time == 2){
+      relationship_dat_long[, var_nam] = c(relationship_dat[, n], rep(NA, nrow(relationship_dat)))
+    }
+    if (var_time == 4){
+      relationship_dat_long[, var_nam] = c(rep(NA, nrow(relationship_dat)), relationship_dat[, n])
+    }
+    
+  } else{
+    
+    #if the variable is already in the dataset, add the remaining values depending on what has already been added 
+    if (var_time == 2){
+      relationship_dat_long[, var_nam] = c(relationship_dat[, n], relationship_dat_long[, var_nam][(nrow(relationship_dat)+1):nrow(relationship_dat_long)])
+    }
+    if (var_time == 4){
+      relationship_dat_long[, var_nam] = c(relationship_dat_long[, var_nam][1:nrow(relationship_dat)], relationship_dat[, n])
+    }
+  }
+}
+
+### CONFIGURAL INVARIANCE ###
+
+#create the three factor model
+relationship_model = 'close =~ Close + Like + Personal + Import + Enjoy + Relat
+                      similarity =~ Things + Attit + ValuesR + Simi + VSimi
+                      eday_centrality =~ See + EDay + Talk'
+
+#configural model summary
+relationship_model_config = cfa(relationship_model, data = relationship_dat_long, estimator = "WLSMV", group = "time")
+summary(relationship_model_config, fit.measures = TRUE, standardized = TRUE)
+
+### METRIC INVARIANCE ###
+
+#metric model summary
+relationship_model_metric = cfa(relationship_model, data = relationship_dat_long, estimator = "WLSMV", group = "time", group.equal = "loadings")
+summary(compareFit(relationship_model_config, relationship_model_metric))
+
+#this assumption is broken (at least factor loading differs across the time periods, and metric invariance is not supported)
+lavTestScore(relationship_model_metric)
+
+#the factor loadings for `close =~ Personal`, `close =~ Import`, `close =~ Relat`, `similarity =~ ValuesR`, and `similarity =~ VSimi` should be freely estimated
+parTable(relationship_model_metric)
+
+#adjust the model
+relationship_model_metric_adjusted = cfa(relationship_model, data = relationship_dat_long, estimator = "WLSMV", group = "time", group.equal = c("loadings"), 
+                                         group.partial = c("close =~ Personal",
+                                                           "close =~ Import",
+                                                           "close =~ Relat",
+                                                           "similarity =~ ValuesR",
+                                                           "similarity =~ VSimi"))
+summary(compareFit(relationship_model_config, relationship_model_metric_adjusted))
+
+### SCALAR INVARIANCE ###
+
+#scalar model summary
+relationship_model_scalar = cfa(relationship_model, data = relationship_dat_long, estimator = "WLSMV", group = "time", group.equal = c("loadings","intercepts"))
+summary(compareFit(relationship_model_metric_adjusted, relationship_model_scalar))
+
+#this assumption is broken (at least one item intercept differs across the time periods, and scalar invariance is not supported)
+lavTestScore(relationship_model_scalar)
+
+#the `Personal ~ 1`, `Import ~ 1`, `ValuesR ~ 1`, `Talk ~ 1` intercept parameters should be freely estimated
+parTable(relationship_model_scalar)
+
+#adjust the model
+relationship_model_scalar_adjusted = cfa(relationship_model, data = relationship_dat_long, estimator = "WLSMV", group = "time", group.equal = c("loadings","intercepts"), 
+                                         group.partial = c("close =~ Personal",
+                                                           "close =~ Import",
+                                                           "close =~ Relat",
+                                                           "similarity =~ ValuesR",
+                                                           "similarity =~ VSimi",
+                                                           "Personal ~ 1",
+                                                           "Import ~ 1",
+                                                           "ValuesR ~ 1",
+                                                           "Talk ~ 1"))
+summary(compareFit(relationship_model_metric_adjusted, relationship_model_scalar_adjusted))
+
+### RESIDUAL INVARIANCE ###
+
+#residual model summary
+relationship_model_residual = cfa(relationship_model, data = relationship_dat_long, estimator = "WLSMV", group = "time", group.equal = c("loadings","intercepts", "residuals"),
+                                  group.partial = c("close =~ Personal",
+                                                    "close =~ Import",
+                                                    "close =~ Relat",
+                                                    "similarity =~ ValuesR",
+                                                    "similarity =~ VSimi",
+                                                    "Personal ~ 1",
+                                                    "Import ~ 1",
+                                                    "ValuesR ~ 1",
+                                                    "Talk ~ 1"))
+summary(compareFit(relationship_model_scalar_adjusted, relationship_model_residual))
+
+#this assumption is broken (the sum of at least one item's residual variance differs across the time periods, and residual invariance is not supported)
+lavTestScore(relationship_model_residual)
+
+#three residual parameters should be freely estimated
+par_dat = parTable(relationship_model_residual)
+
+#adjust the model
+relationship_model_residual_adjusted = cfa(relationship_model, data = relationship_dat_long, estimator = "WLSMV", group = "time", group.equal = c("loadings","intercepts","residuals"), 
+                                           group.partial = c("close =~ Personal",
+                                                             "close =~ Import",
+                                                             "close =~ Relat",
+                                                             "similarity =~ ValuesR",
+                                                             "similarity =~ VSimi",
+                                                             "Personal ~ 1",
+                                                             "Import ~ 1",
+                                                             "ValuesR ~ 1",
+                                                             "Talk ~ 1", 
+                                                             "Personal ~~	Personal",
+                                                             "EDay	~~ EDay",
+                                                             "VSimi ~~ VSimi"))
+summary(compareFit(relationship_model_scalar_adjusted, relationship_model_residual_adjusted))
+
+################################################################################################################################################
+
+### MEASUREMENT INVARIANCE - MOOD SCALE (T2 & T3) ###
+
+#create a dataset that combines scores from each time point
+mood_dat_all = dat[, c("GeneralIndex", "Q231Panicky", "Q232Lively", "Q233Confused", "Q34Worn", "Q235Depres", "Q236Down", "Q23a.1Annoy", "Q23a.2Exhaust", 
+                       "Q23a.3Mix", "Q23a.4Sleep", "Q23a.5Bitter", "Q23a.6Unhap", "Q23b.1Worr", "Q23b.2Energ", "Q23b.3Mis", "Q23b.4Muddl", 
+                       "Q23b.5Nerv", "Q23c.1Acti", "Q23c.2Anx", "Q23c.3BadT", "Q23c.4Tire", "Q23c.5Alert", "Q23c.6Uncet",
+                       "Q3.5.1Panicky", "Q3.5.2Lively", "Q3.5.3Confus", "Q3.5.4Worn", "Q3.5.5Depres", "Q3.5.6Down", "Q3.5.a.1Annoy","Q3.5.a.2Exhaus",
+                       "Q3.5.a.3Mix", "Q3.5.a.4Sleep", "Q3.5.a.5Bitt", "Q3.5.a.6Unhap", "Q3.5.b.1Worri", "Q3.5.b.2Energ", "Q3.5.b.3Mis", "Q3.5.b.4Muddl",
+                       "Q3.5.b.5Nerv", "Q3.5.c.1Activ", "Q3.5.c.2Anx", "Q3.5.c.3BadT", "Q3.5.c.4Tire", "Q3.5.c.5Alert", "Q3.5.c.6Uncer")]
+
+#create a new dataset with replacement variable names
+mood_dat = as.data.frame(mood_dat_all[, c("GeneralIndex")])
+
+#rename non-matching variables (and then remove the variables names to drop)
+mood_dat$Q2.3.1Panicky = mood_dat_all$Q231Panicky
+mood_dat$Q2.3.2Lively = mood_dat_all$Q232Lively
+mood_dat$Q2.3.3Confused = mood_dat_all$Q233Confused
+mood_dat$Q2.3.4Worn = mood_dat_all$Q34Worn
+mood_dat$Q2.3.5Depres = mood_dat_all$Q235Depres
+mood_dat$Q2.3.6Down = mood_dat_all$Q236Down
+mood_dat$Q2.3.1Annoy = mood_dat_all$Q23a.1Annoy
+mood_dat$Q2.3.2Exhaust = mood_dat_all$Q23a.2Exhaust
+mood_dat$Q2.3.3Mix = mood_dat_all$Q23a.3Mix
+mood_dat$Q2.3.4Sleep = mood_dat_all$Q23a.4Sleep
+mood_dat$Q2.3.5Bitter = mood_dat_all$Q23a.5Bitter
+mood_dat$Q2.3.6Unhap = mood_dat_all$Q23a.6Unhap
+mood_dat$Q2.3.1Worried = mood_dat_all$Q23b.1Worr
+mood_dat$Q2.3.2Energ = mood_dat_all$Q23b.2Energ
+mood_dat$Q2.3.3Mis = mood_dat_all$Q23b.3Mis
+mood_dat$Q2.3.4Muddl = mood_dat_all$Q23b.4Muddl
+mood_dat$Q2.3.5Nerv = mood_dat_all$Q23b.5Nerv
+mood_dat$Q2.3.1Active = mood_dat_all$Q23c.1Acti
+mood_dat$Q2.3.2Anx = mood_dat_all$Q23c.2Anx
+mood_dat$Q2.3.3BadT = mood_dat_all$Q23c.3BadT
+mood_dat$Q2.3.4Tire = mood_dat_all$Q23c.4Tire
+mood_dat$Q2.3.5Alert = mood_dat_all$Q23c.5Alert
+mood_dat$Q2.3.6Uncert = mood_dat_all$Q23c.6Uncet
+
+mood_dat$Q3.5.1Panicky = mood_dat_all$Q3.5.1Panicky
+mood_dat$Q3.5.2Lively = mood_dat_all$Q3.5.2Lively
+mood_dat$Q3.5.4Worn = mood_dat_all$Q3.5.4Worn
+mood_dat$Q3.5.5Depres = mood_dat_all$Q3.5.5Depres
+mood_dat$Q3.5.6Down = mood_dat_all$Q3.5.6Down
+mood_dat$Q3.5.3Confused = mood_dat_all$Q3.5.3Confus
+mood_dat$Q3.5.5Bitter = mood_dat_all$Q3.5.a.5Bitt
+mood_dat$Q3.5.1Worried = mood_dat_all$Q3.5.b.1Worri
+mood_dat$Q3.5.1Active = mood_dat_all$Q3.5.c.1Activ
+mood_dat$Q3.5.6Uncert = mood_dat_all$Q3.5.c.6Uncer
+mood_dat$Q3.5.1Annoy = mood_dat_all$Q3.5.a.1Annoy
+mood_dat$Q3.5.2Exhaust = mood_dat_all$Q3.5.a.2Exhaus
+mood_dat$Q3.5.3Mix = mood_dat_all$Q3.5.a.3Mix
+mood_dat$Q3.5.4Sleep = mood_dat_all$Q3.5.a.4Sleep
+mood_dat$Q3.5.6Unhap = mood_dat_all$Q3.5.a.6Unhap
+mood_dat$Q3.5.2Energ = mood_dat_all$Q3.5.b.2Energ
+mood_dat$Q3.5.3Mis = mood_dat_all$Q3.5.b.3Mis
+mood_dat$Q3.5.4Muddl = mood_dat_all$Q3.5.b.4Muddl
+mood_dat$Q3.5.5Nerv = mood_dat_all$Q3.5.b.5Nerv
+mood_dat$Q3.5.2Anx = mood_dat_all$Q3.5.c.2Anx
+mood_dat$Q3.5.3BadT = mood_dat_all$Q3.5.c.3BadT
+mood_dat$Q3.5.4Tire = mood_dat_all$Q3.5.c.4Tire
+mood_dat$Q3.5.5Alert = mood_dat_all$Q3.5.c.5Alert
+
+#create a longform dataset
+mood_dat_long = data.frame(matrix(NA, nrow = 2*nrow(mood_dat), ncol = 0))
+mood_dat_long$time = c(rep(2, nrow(mood_dat)), rep(3, nrow(mood_dat)))
+
+#combine the measures from different time frames into the same variable
+for (n in names(mood_dat)[2:length(names(mood_dat))] ){
+  
+  #get the variable name
+  var_nam = str_split(gsub("[[:digit:]]","",n), ".", n = 2)[[1]][2]
+  var_nam = strsplit(var_nam, "." , 2)[[1]][-1][2]
+  var_time = as.integer(substr(n, 2, 2))
+  
+  #add it to the new dataframe if it is not alreay in there
+  if (var_nam %!in% names(mood_dat_long)){
+    if (var_time == 2){
+      mood_dat_long[, var_nam] = c(mood_dat[, n], rep(NA, nrow(mood_dat)))
+    }
+    if (var_time == 3){
+      mood_dat_long[, var_nam] = c(rep(NA, nrow(mood_dat)), mood_dat[, n])
+    }
+    
+  } else{
+    
+    #if the variable is already in the dataset, add the remaining values depending on what has already been added 
+    if (var_time == 2){
+      mood_dat_long[, var_nam] = c(mood_dat[, n], mood_dat_long[, var_nam][(nrow(mood_dat)+1):nrow(mood_dat_long)])
+    }
+    if (var_time == 3){
+      mood_dat_long[, var_nam] = c(mood_dat_long[, var_nam][1:nrow(mood_dat)], mood_dat[, n])
+    }
+  }
+}
+
+### CONFIGURAL INVARIANCE ###
+
+#create the six factor model
+mood_model = 'tension =~ Panicky + Anx + Worried + Nerv
+              vigour =~ Lively + Energ + Active + Alert
+              confusion =~ Confused + Mix + Muddl + Uncert
+              fatigue =~ Worn + Exhaust + Sleep + Tire
+              depression =~ Depres + Down + Unhap + Mis
+              anger =~ Annoy + Bitter + BadT'
+
+#configural model summary
+mood_model_config = cfa(mood_model, data = mood_dat_long, estimator = "WLSMV", group = "time")
+summary(mood_model_config, fit.measures = TRUE, standardized = TRUE)
+
+### METRIC INVARIANCE ###
+
+#metric model summary
+mood_model_metric = cfa(mood_model, data = mood_dat_long, estimator = "WLSMV", group = "time", group.equal = "loadings")
+summary(compareFit(mood_model_config, mood_model_metric))
+
+#this assumption is broken (at least factor loading differs across the time periods, and metric invariance is not supported)
+lavTestScore(mood_model_metric)
+
+#the factor loadings for seven items should be freely estimated
+parTable(mood_model_metric)
+
+#adjust the model
+mood_model_metric_adjusted = cfa(mood_model, data = mood_dat_long, estimator = "WLSMV", group = "time", group.equal = c("loadings"), 
+                                 group.partial = c("tension =~ Anx",
+                                                   "vigour =~ Alert",
+                                                   "confusion =~ Muddl",
+                                                   "confusion =~ Uncert",
+                                                   "fatigue =~ Exhaust",
+                                                   "fatigue =~ Sleep",
+                                                   "depression =~ Unhap"))
+summary(compareFit(mood_model_config, mood_model_metric_adjusted))
+
+### SCALAR INVARIANCE ###
+
+#scalar model summary
+mood_model_scalar = cfa(mood_model, data = mood_dat_long, estimator = "WLSMV", group = "time", group.equal = c("loadings","intercepts"))
+summary(compareFit(mood_model_metric_adjusted, mood_model_scalar))
+
+#this assumption is broken (at least one item intercept differs across the time periods, and scalar invariance is not supported)
+lavTestScore(mood_model_scalar)
+
+#nine intercept parameters should be freely estimated
+par_dat = parTable(mood_model_scalar)
+
+#adjust the model
+mood_model_scalar_adjusted = cfa(mood_model, data = mood_dat_long, estimator = "WLSMV", group = "time", group.equal = c("loadings","intercepts"), 
+                                 group.partial = c("tension =~ Anx",
+                                                   "vigour =~ Alert",
+                                                   "confusion =~ Muddl",
+                                                   "confusion =~ Uncert",
+                                                   "fatigue =~ Exhaust",
+                                                   "fatigue =~ Sleep",
+                                                   "depression =~ Unhap",
+                                                   "Panicky ~ 1",
+                                                   "Lively ~ 1",
+                                                   "Nerv ~ 1",
+                                                   "Mix ~ 1",
+                                                   "Uncert ~ 1",
+                                                   "Worn ~ 1",
+                                                   "Exhaust ~ 1",
+                                                   "Sleep ~ 1",
+                                                   "Tire ~ 1"))
+summary(compareFit(mood_model_metric_adjusted, mood_model_scalar_adjusted))
+
+### RESIDUAL INVARIANCE ###
+
+#residual model summary
+mood_model_residual = cfa(mood_model, data = mood_dat_long, estimator = "WLSMV", group = "time", group.equal = c("loadings","intercepts", "residuals"),
+                          group.partial = c("tension =~ Anx",
+                                            "vigour =~ Alert",
+                                            "confusion =~ Muddl",
+                                            "confusion =~ Uncert",
+                                            "fatigue =~ Exhaust",
+                                            "fatigue =~ Sleep",
+                                            "depression =~ Unhap",
+                                            "Panicky ~ 1",
+                                            "Lively ~ 1",
+                                            "Nerv ~ 1",
+                                            "Mix ~ 1",
+                                            "Uncert ~ 1",
+                                            "Worn ~ 1",
+                                            "Exhaust ~ 1",
+                                            "Sleep ~ 1",
+                                            "Tire ~ 1"))
+summary(compareFit(mood_model_scalar_adjusted, mood_model_residual))
+
+#this assumption is broken (the sum of at least one item's residual variance differs across the time periods, and residual invariance is not supported)
+lavTestScore(mood_model_residual)
+
+#eight residual parameters should be freely estimated
+par_dat = parTable(mood_model_residual)
+
+#adjust the model
+mood_model_residual_adjusted = cfa(mood_model, data = mood_dat_long, estimator = "WLSMV", group = "time", group.equal = c("loadings","intercepts","residuals"),
+                                   group.partial = c("tension =~ Anx",
+                                                     "vigour =~ Alert",
+                                                     "confusion =~ Muddl",
+                                                     "confusion =~ Uncert",
+                                                     "fatigue =~ Exhaust",
+                                                     "fatigue =~ Sleep",
+                                                     "depression =~ Unhap",
+                                                     "Panicky ~ 1",
+                                                     "Lively ~ 1",
+                                                     "Nerv ~ 1",
+                                                     "Mix ~ 1",
+                                                     "Uncert ~ 1",
+                                                     "Worn ~ 1",
+                                                     "Exhaust ~ 1",
+                                                     "Sleep ~ 1",
+                                                     "Tire ~ 1",
+                                                     "Lively ~~ Lively",
+                                                     "Mix ~~ Mix",
+                                                     "Worn ~~ Worn",
+                                                     "Sleep ~~ Sleep",
+                                                     "Alert ~~ Alert",
+                                                     "Anx ~~ Anx",
+                                                     "Exhaust ~~ Exhaust",
+                                                     "Confused ~~ Confused"))
+summary(compareFit(mood_model_scalar_adjusted, mood_model_residual_adjusted))
 
 ################################################################################################################################################
 
