@@ -1,2 +1,6 @@
 #R history file
 analysis_code/.Rhistory
+
+#R session data file
+.RData
+
