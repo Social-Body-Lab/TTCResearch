@@ -17,3 +17,39 @@ LEVEL-ONE HOMOSCEDASTICITY
 Homoscedasticity test statistic (H): 76.176
 Homoscedasticity test degrees of freedom: 13
 Homoscedasticity test p-value (significance indicates heteroscedasticity): 0
+LEVEL-TWO OUTLIERS
+Total level-two outliers: 5
+Mean total observations per level-two unit: 4.31
+Mean observations for outlying level-two units: 3.2
+Percentage of outliers with fewer observations than the overall average: 80
+
+LEVEL-TWO UNIT INFLUENCE
+Mean Cook's distances: 0.015
+Standard deviation of Cook's distances: 0.045
+Minimum Cook's distance: 4.2646758809163e-05
+Maximum Cook's distance: 0.366724399796632
+Percentage of level-two units with potentially problematic Cook's distances (greater than 1; Field et al., 2014): 0
+Percentage of level-two units with potentially problematic Cook's distances (greater than 4/n; Nieuwenhuis et al., 2012): 7.865
+LEVEL-TWO OUTLIERS
+Total level-two outliers: 5
+Mean total observations per level-two unit: 4.31
+Mean observations for outlying level-two units: 3.2
+Percentage of outliers with fewer observations than the overall average: 80LEVEL-TWO OUTLIERS
+Total level-two outliers: 5
+Mean total observations per level-two unit: 4.31
+Mean observations for outlying level-two units: 3.2
+Percentage of outliers with fewer observations than the overall average: 80
+
+LEVEL-TWO UNIT INFLUENCE
+Mean Cook's distances: 0.015
+Standard deviation of Cook's distances: 0.045
+Minimum Cook's distance: 4.2646758809163e-05
+Maximum Cook's distance: 0.366724399796632
+Percentage of level-two units with potentially problematic Cook's distances (greater than 1; Field et al., 2014): 0
+Percentage of level-two units with potentially problematic Cook's distances (greater than 4/n; Nieuwenhuis et al., 2012): 7.865
+Percentage of level-two units that would change predictor significance if removed from model: 0
+
+LEVEL-ONE HOMOSCEDASTICITY
+Homoscedasticity test statistic (H): 76.176
+Homoscedasticity test degrees of freedom: 13
+Homoscedasticity test p-value (significance indicates heteroscedasticity): 0
