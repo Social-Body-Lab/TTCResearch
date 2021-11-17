@@ -102,7 +102,7 @@ print(paste("TOTAL PARTICIPANTS:", length(unique(dat$GeneralIndex))))
 print(paste("TOTAL TEAMS:", length(unique(dat$TeamIDVar))))
 
 #mean, SD, and range for observations per team
-obvs_per_team = dat %>% group_by(TeamIDVar) %>% summarise(count = mean(n()))
+obvs_per_team = dat %>% group_by(TeamIDVar) %>% dplyr::summarise(count = mean(dplyr::n()))
 mean(obvs_per_team$count)
 sd(obvs_per_team$count)
 range(obvs_per_team$count)
@@ -115,6 +115,8 @@ t1_q_cols = c(1, 2, 5:18)
 t1_qs = na.omit(dat[, t1_q_cols])
 
 print(paste("TIME 1 UNIQUE SURVEY RESPONSES:", as.character(length(unique(t1_qs$GeneralIndex)))))
+print(paste0("TIME 1 UNIQUE SURVEY RESPONSES:", as.character(length(unique(t1_qs$GeneralIndex))), "(", 5 ,")"))
+
 print(paste("TIME 1 UNIQUE TEAM RESPONSES:", as.character(length(unique(t1_qs$TeamIDVar)))))
 
 #get data on observations per team
@@ -126,7 +128,7 @@ print(paste("TIME 1 RANGE RESPONSE(S) PER TEAM:", range(t1_qs_obvs_per_team$coun
 ### ### ###
 
 #number of individuals and teams who completed the second round of questions (look at survey questions that cannot be skipped)
-t2_q_cols = c(1, 2, 19:92)
+t2_q_cols = c(1, 2, 20:92)
 t2_qs = na.omit(dat[, t2_q_cols])
 
 print(paste("TIME 2 UNIQUE SURVEY RESPONSES:", as.character(length(unique(t2_qs$GeneralIndex)))))
@@ -141,7 +143,7 @@ print(paste("TIME 2 RANGE RESPONSE(S) PER TEAM:", range(t2_qs_obvs_per_team$coun
 ### ### ###
 
 #number of individuals and teams who completed the third round of questions (look at survey questions that cannot be skipped)
-t3_q_cols = c(1, 2, 93:139)
+t3_q_cols = c(1, 2, 94:139)
 t3_qs = na.omit(dat[, t3_q_cols])
 
 print(paste("TIME 3 UNIQUE SURVEY RESPONSES:", as.character(length(unique(t3_qs$GeneralIndex)))))
@@ -156,7 +158,7 @@ print(paste("TIME 3 RANGE RESPONSE(S) PER TEAM:", range(t3_qs_obvs_per_team$coun
 ### ### ###
 
 #number of individuals and teams who completed the fourth round of questions (look at survey questions that cannot be skipped)
-t4_q_cols = c(1, 2, 140:173)
+t4_q_cols = c(1, 2, 141:173)
 t4_qs = na.omit(dat[, t4_q_cols])
 
 print(paste("TIME 4 UNIQUE SURVEY RESPONSES:", as.character(length(unique(t4_qs$GeneralIndex)))))
@@ -196,6 +198,117 @@ print(paste0("COUNT AND PERCENTAGE OF PARTICIPANTS WHO FINISHED ONE SURVEY: ", t
 print(paste0("COUNT AND PERCENTAGE OF PARTICIPANTS WHO FINISHED TWO SURVEYS: ", table(completions_counts)[2], " (", round((table(completions_counts)[2]/sum(table(completions_counts)))*100, 2), "%)"))
 print(paste0("COUNT AND PERCENTAGE OF PARTICIPANTS WHO FINISHED THREE SURVEYS: ", table(completions_counts)[3], " (", round((table(completions_counts)[3]/sum(table(completions_counts)))*100, 2), "%)"))
 print(paste0("COUNT AND PERCENTAGE OF PARTICIPANTS WHO FINISHED FOUR SURVEYS: ", table(completions_counts)[4], " (", round((table(completions_counts)[4]/sum(table(completions_counts)))*100, 2), "%)"))
+
+### ### ###
+
+#list of potential completion combinations
+one_two_three_four = c()
+one_two_three = c()
+two_three_four = c()
+one_three_four = c()
+one_two_four = c()
+one_two = c()
+one_three = c()
+one_four = c()
+two_three = c()
+two_four = c()
+three_four = c()
+one = c()
+two = c()
+three = c()
+four = c()
+
+#get the completion combination for each participant
+for (p in unique(dat$GeneralIndex)){
+  
+  if (p %in% unique(t1_qs$GeneralIndex) & p %in% unique(t2_qs$GeneralIndex) & p %in% unique(t3_qs$GeneralIndex) & p %in% unique(t4_qs$GeneralIndex)){
+    one_two_three_four[[length(one_two_three_four) + 1]] = p
+    next} 
+  
+  if (p %in% unique(t1_qs$GeneralIndex) & p %in% unique(t2_qs$GeneralIndex) & p %in% unique(t3_qs$GeneralIndex)){
+    one_two_three[[length(one_two_three) + 1]] = p
+    next} 
+  
+  if (p %in% unique(t2_qs$GeneralIndex) & p %in% unique(t3_qs$GeneralIndex) & p %in% unique(t4_qs$GeneralIndex)){
+    two_three_four[[length(two_three_four) + 1]] = p
+    next} 
+  
+  if (p %in% unique(t1_qs$GeneralIndex) & p %in% unique(t3_qs$GeneralIndex) & p %in% unique(t4_qs$GeneralIndex)){
+    one_three_four[[length(one_three_four) + 1]] = p
+    next}  
+
+  if (p %in% unique(t1_qs$GeneralIndex) & p %in% unique(t2_qs$GeneralIndex) & p %in% unique(t4_qs$GeneralIndex)){
+    one_two_four[[length(one_two_four) + 1]] = p
+    next}  
+  
+  if (p %in% unique(t1_qs$GeneralIndex) & p %in% unique(t2_qs$GeneralIndex)){
+    one_two[[length(one_two) + 1]] = p
+    next}  
+  
+  if (p %in% unique(t1_qs$GeneralIndex) & p %in% unique(t3_qs$GeneralIndex)){
+    one_three[[length(one_three) + 1]] = p
+    next}    
+
+  if (p %in% unique(t1_qs$GeneralIndex) & p %in% unique(t4_qs$GeneralIndex)){
+    one_four[[length(one_four) + 1]] = p
+    next}    
+
+  if (p %in% unique(t2_qs$GeneralIndex) & p %in% unique(t3_qs$GeneralIndex)){
+    two_three[[length(two_three) + 1]] = p
+    next}    
+  
+  if (p %in% unique(t2_qs$GeneralIndex) & p %in% unique(t4_qs$GeneralIndex)){
+    two_four[[length(two_four) + 1]] = p
+    next}    
+  
+  if (p %in% unique(t3_qs$GeneralIndex) & p %in% unique(t4_qs$GeneralIndex)){
+    three_four[[length(three_four) + 1]] = p
+    next}    
+
+  if (p %in% unique(t1_qs$GeneralIndex)){
+    one[[length(one) + 1]] = p}  
+  
+  if (p %in% unique(t2_qs$GeneralIndex)){
+    two[[length(two) + 1]] = p}  
+  
+  if (p %in% unique(t3_qs$GeneralIndex)){
+    three[[length(three) + 1]] = p}  
+  
+  if (p %in% unique(t4_qs$GeneralIndex)){
+    four[[length(four) + 1]] = p}  
+}
+
+#check that all survey completion combinations add up to the total number of participants (226)
+length(one_two_three_four) + length(one_two_three) + length(two_three_four) + length(one_three_four) + length(one_two_four) + length(one_two) +
+length(one_three) + length(one_four) + length(two_three) + length(two_four) + length(three_four) + length(one) + length(two) + length(three) + length(four)
+
+#check that all survey completion combinations (excluding combinations with zero participants) add up to the total number of participants (226)
+length(one_two_three_four) +
+  length(one) +
+  length(one_three_four) +
+  length(one_two_three) +
+  length(two_three) +
+  length(three) +
+  length(one_four) +
+  length(two_three_four) +
+  length(three_four) +
+  length(one_three) +
+  length(one_two_four) +
+  length(one_two) +
+  length(four)
+  
+#get the percentage of participants for each survey completion combination    
+round(length(one_two_three_four)/226 * 100, 2)
+round(length(one)/226 * 100, 2)
+round(length(one_three_four)/226 * 100, 2)
+round(length(one_two_three)/226 * 100, 2)
+round(length(two_three)/226 * 100, 2)
+round(length(three)/226 * 100, 2)
+round(length(one_four)/226 * 100, 2)
+round(length(two_three_four)/226 * 100, 2)
+round(length(one_two_four)/226 * 100, 2)
+round(length(one_two)/226 * 100, 2)
+round(length(four)/226 * 100, 2)
 
 ################################################################################################################################################
 
@@ -256,7 +369,7 @@ sd(dat$vigour_t2, na.rm = TRUE)
 mean(dat$vigour_t3, na.rm = TRUE)
 sd(dat$vigour_t3, na.rm = TRUE)
 
-#mean, SD for psychological closeness variables (t2 and t4)
+#mean, SD for perceptions of relationships variables (t2 and t4)
 mean(dat$closeness_t2, na.rm = TRUE)
 sd(dat$closeness_t2, na.rm = TRUE)
 mean(dat$closeness_t4, na.rm = TRUE)
@@ -398,11 +511,46 @@ sd(dat$Q3.6.3Effort, na.rm = TRUE)
 
 ################################################################################################################################################
 
+### POWER ANALYSIS ###
+
+library(simr)
+
+#set the random seed for reproducibility (and Jackie Robinson)
+set.seed(42)
+
+#create a representative dataset
+pst3_dat = dat[complete.cases(dat[ , c("peform_satisfaction_t3")]),]
+
+#determine 80% of the full sample of participants, and make the dataset that length
+samp_80 = round(nrow(dat)*.8, 0)
+pst3_dat = pst3_dat[1:samp_80, ]
+
+#set the distribution of the predictor variable
+x = pst3_dat$peform_satisfaction_t3
+
+#set the assumed fixed effect intercept and slope estimate
+b = c(0, 0.05)
+
+#set the assumed random intercept variance
+rand_int_var = 0.01
+
+#set the assumed residual variance
+s = 0.175 
+
+#create the model to be used in the simulations
+peform_satisfaction_t3_power_analysis = makeLmer(y ~ x + (1|TeamIDVar), fixef = b, VarCorr = rand_int_var, sigma = s, data = pst3_dat)
+
+#run the simulations and return the power analysis
+powerSim(peform_satisfaction_t3_power_analysis, nsim = 100)
+
+################################################################################################################################################
+
 ### CHANGES IN MOOD OVER TIME (T2 to T3) ###
 
 library(tidyr)
 library(lme4)
 library(lmerTest)
+library(MuMIn)
 
 #create long form datasets
 mood_dat = dat[, c("GeneralIndex", "anger_t2", "anger_t3", "confusion_t2", "confusion_t3", "depression_t2", "depression_t3",
@@ -526,7 +674,7 @@ check_assumptions_change_over_time_models(code_dir, relationships_mlms, relation
 ### CHANGES IN WELLBEING OVER TIME (T1 to T4) ###
 
 #create a long form dataset
-wellbeing_dat = dat[, c("GeneralIndex", "wellbeing_t1", "wellbeing_t4", "TeamIDVar", "Sex")]
+wellbeing_dat = dat[, c("GeneralIndex", "wellbeing_t1", "wellbeing_t4", "TeamIDVar", "Sex", "AgeMonths")]
 wellbeing_long = gather(wellbeing_dat, time, wellbeing_score, wellbeing_t1:wellbeing_t4, factor_key = TRUE, na.rm = TRUE)
 
 #rename the time variable
@@ -534,7 +682,9 @@ wellbeing_long$time = ifelse(wellbeing_long$time == "wellbeing_t1", "Time 1", if
 
 #simple model (more complex models failed to converge)
 wellbeing_change_model = lmer(wellbeing_score ~ time + Sex + (1 | TeamIDVar/GeneralIndex), data = wellbeing_long)
+wellbeing_change_model_age = lmer(wellbeing_score ~ time + Sex + AgeMonths + (1 | TeamIDVar/GeneralIndex), data = wellbeing_long)
 summary(wellbeing_change_model)
+summary(wellbeing_change_model_age)
 #make_MS_Word_model_summary_table(wellbeing_change_model)
 
 ### CHECK MODEL ASSUMPTIONS ###
@@ -572,13 +722,21 @@ abline(lm(dat$wellbeing_change ~ dat$peform_satisfaction_t3, data = dat))
 #simple model (more complex models failed to converge)
 peform_satisfaction_t3_wellbeing_change_model = lmer(wellbeing_change ~ peform_satisfaction_t3 + Sex + (1 | TeamIDVar), data = dat)
 summary(peform_satisfaction_t3_wellbeing_change_model)
+
+#adds a weak prior to get an approximate Bayesian maximum a posteriori estimate that avoids singularity
+peform_satisfaction_t3_wellbeing_change_blme_model = blmer(wellbeing_change ~ peform_satisfaction_t3 + Sex + (1 | TeamIDVar), data = dat, cov.prior = invwishart(df = 5))
+summary(peform_satisfaction_t3_wellbeing_change_blme_model)
+r.squaredGLMM(peform_satisfaction_t3_wellbeing_change_blme_model)
+
+#make table of the basic, 'lmer' models, but manually fill them in with the 'blmer' models (p-values can be calculated with the 'pt' function, see example below, and degrees of freedom from the 'lmer' models)
 #make_MS_Word_model_summary_table(peform_satisfaction_t3_wellbeing_change_model)
+main_predictor_p_val_example = 2*pt(q=2.793, df=136,lower.tail = FALSE)
 
 ### CHECK MODEL ASSUMPTIONS ###
 
 #check assumptions for models with statistical significance
-peform_satisfaction_t3_wellbeing_change_mlm = c(peform_satisfaction_t3_wellbeing_change_model)
-peform_satisfaction_t3_wellbeing_change_mlm_dir_names = c("peform_satisfaction_t3_wellbeing_change_model")
+peform_satisfaction_t3_wellbeing_change_mlm = c(peform_satisfaction_t3_wellbeing_change_blme_model)
+peform_satisfaction_t3_wellbeing_change_mlm_dir_names = c("peform_satisfaction_t3_wellbeing_change_blme_model")
 predictor = c("peform_satisfaction_t3")
 predictors_integer = c("peform_satisfaction_t3")
 predictor_name = c("Performance Satisfaction (T3)")
@@ -598,6 +756,9 @@ check_assumptions_main_models(code_dir, peform_satisfaction_t3_wellbeing_change_
 
 ### BONDING AT T2 AND T3 PREDICTS CHANGES IN WELLBEING (T1 to T4) ###
 
+library(blme)
+library(MuMIn)
+
 #plot the relationships by individual
 plot(dat$bonding_t2, dat$wellbeing_change)
 abline(lm(dat$wellbeing_change ~ dat$bonding_t2, data = dat))
@@ -608,17 +769,29 @@ abline(lm(dat$wellbeing_change ~ dat$bonding_t3, data = dat))
 #simple models (more complex models failed to converge)
 bonding_t2_wellbeing_change_model = lmer(wellbeing_change ~ bonding_t2 + Sex + (1 | TeamIDVar), data = dat)
 summary(bonding_t2_wellbeing_change_model)
-#make_MS_Word_model_summary_table(bonding_t2_wellbeing_change_model)
 
 bonding_t3_wellbeing_change_model = lmer(wellbeing_change ~ bonding_t3 + Sex + (1 | TeamIDVar), data = dat)
 summary(bonding_t3_wellbeing_change_model)
+
+#adds a weak prior to get an approximate Bayesian maximum a posteriori estimate that avoids singularity
+bonding_t2_wellbeing_change_blme_model = blmer(wellbeing_change ~ bonding_t2 + Sex + (1 | TeamIDVar), data = dat, cov.prior = invwishart(df = 5))
+summary(bonding_t2_wellbeing_change_blme_model)
+r.squaredGLMM(bonding_t2_wellbeing_change_blme_model)
+
+bonding_t3_wellbeing_change_blme_model = blmer(wellbeing_change ~ bonding_t3 + Sex + (1 | TeamIDVar), data = dat, cov.prior = invwishart(df = 5))
+summary(bonding_t3_wellbeing_change_blme_model)
+r.squaredGLMM(bonding_t3_wellbeing_change_blme_model)
+
+#make table of the basic, 'lmer' models, but manually fill them in with the 'blmer' models (p-values can be calculated with the 'pt' function, see example below, and degrees of freedom from the 'lmer' models)
+#make_MS_Word_model_summary_table(bonding_t2_wellbeing_change_model)
 #make_MS_Word_model_summary_table(bonding_t3_wellbeing_change_model)
+main_predictor_p_val_example = 2*pt(q=2.808, df=136,lower.tail = FALSE)
 
 ### CHECK MODEL ASSUMPTIONS ###
 
 #check assumptions for models with statistical significance
-bonding_wellbeing_change_mlm = c(bonding_t3_wellbeing_change_model)
-bonding_wellbeing_change_mlm_dir_names = c("bonding_t3_wellbeing_change_model")
+bonding_wellbeing_change_mlm = c(bonding_t3_wellbeing_change_blme_model)
+bonding_wellbeing_change_mlm_dir_names = c("bonding_t3_wellbeing_change_blme_model")
 predictors = c("bonding_t3")
 predictors_integers = c("bonding_t3")
 predictor_names = c("Bonding (T3)")
@@ -687,9 +860,15 @@ check_assumptions_change_over_time_models(code_dir, bonding_change_mlms, bonding
 
 ### CHANGES IN BONDING (T2 TO T3) PREDICT CHANGES IN WELLBEING (T1 to T4) ###
 
-#create the change in bonding and wellbeing variables
+#create the change in bonding and wellbeing variables (and get their means and SDs)
 dat$bonding_change_t2_t3 = dat$bonding_t3 - dat$bonding_t2
 dat$wellbeing_change = dat$wellbeing_t4 - dat$wellbeing_t1
+
+mean(dat$bonding_change_t2_t3, na.rm = TRUE)
+sd(dat$bonding_change_t2_t3, na.rm = TRUE)
+
+mean(dat$wellbeing_change, na.rm = TRUE)
+sd(dat$wellbeing_change, na.rm = TRUE)
 
 #plot the relationships by individual
 plot(dat$bonding_change_t2_t3, dat$wellbeing_change)
@@ -698,7 +877,15 @@ abline(lm(dat$wellbeing_change ~ dat$bonding_change_t2_t3, data = dat))
 #simple model (more complex models failed to converge)
 bonding_change_wellbeing_change_model = lmer(wellbeing_change ~ bonding_change_t2_t3 + Sex + (1 | TeamIDVar), data = dat)
 summary(bonding_change_wellbeing_change_model)
+
+#adds a weak prior to get an approximate Bayesian maximum a posteriori estimate that avoids singularity
+bonding_change_wellbeing_change_blme_model = blmer(wellbeing_change ~ bonding_change_t2_t3 + Sex + (1 | TeamIDVar), data = dat, cov.prior = invwishart(df = 5))
+summary(bonding_change_wellbeing_change_blme_model)
+r.squaredGLMM(bonding_change_wellbeing_change_blme_model)
+
+#make table of the basic, 'lmer' models, but manually fill them in with the 'blmer' models (p-values can be calculated with the 'pt' function, see example below, and degrees of freedom from the 'lmer' models)
 #make_MS_Word_model_summary_table(bonding_change_wellbeing_change_model)
+main_predictor_p_val_example = 2*pt(q=1.829, df=119,lower.tail = FALSE)
 
 ################################################################################################################################################
 
@@ -1085,14 +1272,12 @@ r.squaredGLMM(interdependence_and_discomfort_on_bonding_blme_model)
 
 ################################################################################################################################################
 
-### INTERACTIONS BETWEEN PERCEPTIONS OF PHYSICAL DISCOMFORT AND RECEIVED SUPPORT (BOTH EMOTIONAL AND ESTEEM - SEPERATE MODELS) ON BONDING ###
+### INTERACTIONS BETWEEN PERCEPTIONS OF PHYSICAL DISCOMFORT AND RECEIVED SUPPORT (BOTH EMOTIONAL AND ESTEEM - SEPARATE MODELS) ON BONDING ###
 
 #simple model
 received_support_emotional_and_discomfort_on_bonding = lmer(bonding_t3 ~ received_support_t3_emotional*phys_diff_t3 + Sex + (1 | TeamIDVar), data = dat)
 summary(received_support_emotional_and_discomfort_on_bonding)
 #make_MS_Word_model_summary_table(received_support_emotional_and_discomfort_on_bonding)
-
-### INTERACTION BETWEEN PERCEPTIONS OF PHYSICAL DISCOMFORT AND RECEIVED SUPPORT (ESTEEM) ON BONDING ###
 
 #simple model (this model is singular)
 received_support_esteem_and_discomfort_on_bonding = lmer(bonding_t3 ~ received_support_t3_esteem*phys_diff_t3 + Sex + (1 | TeamIDVar), data = dat)
@@ -1103,15 +1288,16 @@ received_support_esteem_and_discomfort_on_bonding_blme_model = blmer(bonding_t3 
 summary(received_support_esteem_and_discomfort_on_bonding_blme_model)
 
 #get approximate p-values from a blme object
-parameters::p_value(received_support_esteem_and_discomfort_on_bonding)
+parameters::p_value(received_support_esteem_and_discomfort_on_bonding_blme_model)
 
 #make table of the basic, 'lmer' model, but manually fill it in with the 'blmer' model
 #make_MS_Word_model_summary_table(received_support_esteem_and_discomfort_on_bonding)
+r.squaredGLMM(received_support_emotional_and_discomfort_on_bonding)
 r.squaredGLMM(received_support_esteem_and_discomfort_on_bonding_blme_model)
 
 ################################################################################################################################################
 
-### COLLECTIVE EFFICACY MEDIATES THE RELATIONSHIP BETWEEN PERCEIVED SUPPORT (BOTH EMOTIONAL AND ESTEEM - SEPERATE MODELS) AND THREAT APPRAISAL ###
+### COLLECTIVE EFFICACY MEDIATES THE RELATIONSHIP BETWEEN PERCEIVED SUPPORT (BOTH EMOTIONAL AND ESTEEM - SEPARATE MODELS) AND THREAT APPRAISAL ###
 
 library(mediation)
 set.seed(2014)
@@ -1193,6 +1379,22 @@ base_theme = theme(text=element_text(size=header_size, family="Arial"),
                    axis.title.y = element_text(margin = margin(t = 0, r = 10, b = 0, l = 0), face = "bold"),
                    plot.title = element_text(lineheight=1, face="bold"))
 
+#create a theme for no legend
+legend_theme = theme(text=element_text(size=header_size, family="Arial"),
+                     axis.text.x = element_text(color='black',size=axis_size*.9),
+                     axis.text.y = element_text(color='black',size=axis_size*.9),
+                     panel.background = element_rect(colour = '#FFFFFF',fill='#FFFFFF'),
+                     axis.line = element_line(size = .25, colour = "black"),
+                     panel.grid.minor = element_blank(),
+                     panel.grid.major = element_line(colour = '#e7e7e7',size=.25),
+                     plot.margin = margin(1, 1, 1, 1, "cm"),
+#                     legend.key = element_blank(),
+#                     legend.background = element_blank(),
+                     legend.title = element_text(face="bold"),
+                     axis.title.x = element_text(margin = margin(t = 10, r = 0, b = 0, l = 0), face = "bold"),
+                     axis.title.y = element_text(margin = margin(t = 0, r = 10, b = 0, l = 0), face = "bold"),
+                     plot.title = element_text(lineheight=1, face="bold"))
+
 #create a theme with space at the top for additional labels
 top_space_theme = base_theme + theme(plot.margin = margin(2, 1, 1, 1, "cm"))
 
@@ -1211,7 +1413,7 @@ library(sjPlot)
 library(grid)
 
 #get the data to be plotted
-plotted_model_performance_sat_wellbeing_change = plot_model(peform_satisfaction_t3_wellbeing_change_model, type = 'pred',
+plotted_model_performance_sat_wellbeing_change = plot_model(peform_satisfaction_t3_wellbeing_change_blme_model, type = 'pred',
                                             terms = c('peform_satisfaction_t3'))[["data"]]
 
 plot_dat_peform_satisfaction_t3_wellbeing_change = dat[, c("peform_satisfaction_t3", "wellbeing_change")]
@@ -1231,8 +1433,8 @@ plot_ps_wc = ggplot() +
              scale_x_continuous(limits = c(low_sat, round(high_sat)), breaks = c(-3, -2, -1, 0, 1), 
                                 labels = c("-3", "-2", "-1", "0", "1")) +
              scale_y_continuous(limits = c(min(plot_dat_peform_satisfaction_t3_wellbeing_change$wellbeing_change), 2)) +
-             ylab("Change in Wellbeing (T1 to T4)") + 
-             xlab("Performance Satisfaction\n(component score)") + 
+             ylab("Change in Well-being (T1 to T4)") + 
+             xlab("Performance Satisfaction (T3)") + 
              base_theme
 
 ggsave("../outputs/main_analysis_plots/wellbeing_change_by_performance_satisfaction.jpg", plot_ps_wc, width = 7.5, height = 7.5)
@@ -1242,7 +1444,7 @@ ggsave("../outputs/main_analysis_plots/wellbeing_change_by_performance_satisfact
 ### BONDING (T3) PREDICTS WELLBEING CHANGE (T1 TO T4) ###
 
 #get the data to be plotted
-plotted_model_bonding_t3_wellbeing_change = plot_model(bonding_t3_wellbeing_change_model, type = 'pred', terms = c('bonding_t3'))[["data"]]
+plotted_model_bonding_t3_wellbeing_change = plot_model(bonding_t3_wellbeing_change_blme_model, type = 'pred', terms = c('bonding_t3'))[["data"]]
 
 plot_dat_bonding_t3_wellbeing_change = dat[, c("bonding_t3", "wellbeing_change")]
 plot_dat_bonding_t3_wellbeing_change = na.omit(plot_dat_bonding_t3_wellbeing_change)
@@ -1261,15 +1463,15 @@ plot_bt3_wc = ggplot() +
               scale_x_continuous(limits = c(round(low_bond), high_bond), breaks = c(-3, -2, -1, 0, 1), 
                                  labels = c("-3", "-2", "-1", "0", "1")) +
               scale_y_continuous(limits = c(min(plot_dat_peform_satisfaction_t3_wellbeing_change$wellbeing_change), 2)) +
-              ylab("Change in Wellbeing (T1 to T4)") + 
-              xlab("Bonding (T3)\n(component score)") + 
+              ylab("Change in Well-being (T1 to T4)") + 
+              xlab("Bonding (T3)") + 
               base_theme
 
 ggsave("../outputs/main_analysis_plots/wellbeing_change_by_bonding_t3.jpg", plot_bt3_wc, width = 7.5, height = 7.5)
 
 ################################################################################################################################################
 
-### COMBINE PREDICTORS OFF WELLBEING CHANGE PLOTS ###
+### COMBINE PREDICTORS OF WELLBEING CHANGE PLOTS ###
 
 library(ggpubr)
 
@@ -1455,3 +1657,58 @@ plot_bt3_ps = ggplot() +
               base_theme
 
 ggsave("../outputs/main_analysis_plots/performance_satisfaction_by_bonding_t3.jpg", plot_bt3_ps, width = 7.5, height = 7.5)
+
+################################################################################################################################################
+
+### INTERACTIONS BETWEEN PERCEPTIONS OF PHYSICAL DISCOMFORT AND RECEIVED SUPPORT (BOTH EMOTIONAL AND ESTEEM - SEPARATE PLOTS) ON BONDING ###
+
+#get the data to be plotted
+plotted_model_received_support_esteem_and_discomfort_on_bonding = plot_model(received_support_esteem_and_discomfort_on_bonding_blme_model,
+                                                                             type = 'pred', terms = c('received_support_t3_esteem', 'phys_diff_t3 [quart]'))[["data"]]
+
+#set a color gradient
+pd_cols = c("royalblue4", "springgreen4", "grey37", "darkorange", "red2")
+
+#plot the data 
+plot_rsest_pd_int_bonding = ggplot() +
+                            geom_line(data = plotted_model_received_support_esteem_and_discomfort_on_bonding, aes(x = x, y = predicted, color = group)) + 
+                            geom_ribbon(data = plotted_model_received_support_esteem_and_discomfort_on_bonding, 
+                                        aes(x = x, ymax = conf.high, ymin = conf.low, fill = group), alpha = 0.15, linetype = 0) + 
+                            ylab("Bonding (T3)\n(component score)") +
+                            xlab("Received Esteem Support\n(5-point Likert Scale question mean)") +
+                            scale_x_continuous(breaks = c(1, 2, 3, 4, 5), limits = c(1, 5)) +
+                            scale_y_continuous(breaks = c(-4, -3, -2, -1, 0, 1), limits = c(-4, 1.5)) +
+                            scale_fill_manual(name = "Physical Discomfort\n(quintile)", 
+                                              labels = c("First (low)", "Second", "Third", "Fourth", "Fifth (high)"),
+                                              values = pd_cols) +
+                            scale_color_manual(name = "Physical Discomfort\n(quintile)", 
+                                               labels = c("First (low)", "Second", "Third", "Fourth", "Fifth (high)"),
+                                               values = pd_cols) +
+                            legend_theme
+
+ggsave("../outputs/main_analysis_plots/esteem_support_by_physical_discomfort_interaction_on_bonding.jpg", plot_rsest_pd_int_bonding, width = 10, height = 7.5)
+
+### ### ###
+
+#get the data to be plotted
+plotted_model_received_support_emotional_and_discomfort_on_bonding = plot_model(received_support_emotional_and_discomfort_on_bonding,
+                                                                                type = 'pred', terms = c('received_support_t3_emotional', 'phys_diff_t3 [quart]'))[["data"]]
+
+#plot the data 
+plot_rsemo_pd_int_bonding = ggplot() +
+                            geom_line(data = plotted_model_received_support_emotional_and_discomfort_on_bonding, aes(x = x, y = predicted, color = group)) + 
+                            geom_ribbon(data = plotted_model_received_support_emotional_and_discomfort_on_bonding, 
+                            aes(x = x, ymax = conf.high, ymin = conf.low, fill = group), alpha = 0.15, linetype = 0) + 
+                            scale_x_continuous(breaks = c(1, 2, 3, 4, 5), limits = c(1, 5)) +
+                            scale_y_continuous(breaks = c(-4, -3, -2, -1, 0, 1), limits = c(-4, 1.5)) +
+                            ylab("Bonding (T3)\n(component score)") +
+                            xlab("Received Emotional Support\n(5-point Likert Scale question mean)") +
+                            scale_fill_manual(name = "Physical Discomfort\n(quintile)", 
+                                              labels = c("First (low)", "Second", "Third", "Fourth", "Fifth (high)"),
+                                              values = pd_cols) +
+                            scale_color_manual(name = "Physical Discomfort\n(quintile)", 
+                            labels = c("First (low)", "Second", "Third", "Fourth", "Fifth (high)"),
+                            values = pd_cols) +
+                            legend_theme
+
+ggsave("../outputs/main_analysis_plots/emotionaL_support_by_physical_discomfort_interaction_on_bonding.jpg", plot_rsemo_pd_int_bonding, width = 10, height = 7.5)
